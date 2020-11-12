@@ -65,20 +65,25 @@ public class SistemaPetShop {
 		mostrarVeterinarios();
 		System.out.println("Deseja visualizar os animais atendidos por qual veterinário? ");
 		int a = Integer.parseInt(leitor.nextLine());
+		System.out.println("-----------------------------------------------------------");
 		for(int i = 0; i < veterinarios[a].getQtdAnimais(); i++){
 			System.out.println("Identificação: " + i);
 			System.out.println("Animal: "+ veterinarios[a].getAnimal(i));
 		}
+		System.out.println("-----------------------------------------------------------");
 	}
 	
 	public void cadastrarDono() {
 		mostrarVeterinarios();
 		System.out.println("Deseja visualizar os animais atendidos por qual veterinário? ");
 		int a = Integer.parseInt(leitor.nextLine());
+		System.out.println("-----------------------------------------------------------");
 		for(int i = 0; i < veterinarios[a].getQtdAnimais(); i++){
 			System.out.println("Identificação: " + i);
 			System.out.println("Animal: "+ veterinarios[a].getAnimal(i));
 		}
+		System.out.println("-----------------------------------------------------------");
+		
 		System.out.println("Deseja cadastrar o dono de qual animal?");
 		int escolha = Integer.parseInt(leitor.nextLine());
 		Dono aux = new Dono();

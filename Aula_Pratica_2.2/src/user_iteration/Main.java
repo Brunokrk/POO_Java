@@ -24,8 +24,8 @@ public class Main {
 		}
 		System.out.println("--------------------------------");
 
-		imprimeMenu();
 		while(flag_2==true) {
+			imprimeMenu();
 			System.out.print("Informe a opção::::");
 			k = leitor.nextInt();
 			switch(k) {
@@ -59,22 +59,5 @@ public class Main {
 		System.out.println("5.Cadastrar Endereço de um dono");
 	}
 	
-	private static SistemaPetShop inicioSistema(SistemaPetShop sistema) {
-		boolean flag = true;
-		int escolha;
-
-		System.out.println("-----Cadastro de Veterinário-----");
-		while(flag == true) {
-			sistema.cadastrarVeterinario();
-			System.out.println("Deseja cadastrar outro veterinário? (1/0): ");
-			escolha = Integer.parseInt(leitor.next());
-			if(escolha == 0) {
-				flag = false;
-			}
-		}
-		System.out.println("--------------------------------");
-		
-		return sistema;
-	}
 }
 
