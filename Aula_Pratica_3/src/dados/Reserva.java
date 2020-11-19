@@ -6,8 +6,9 @@ public class Reserva {
 	private String horaVoo;
 	private float preco;
 	private String classeVoo;
-	private boolean idaEvolta;
+	private boolean idaEvolta = false;
 	private int poltrona;
+	private Reserva volta;
 	private Cidade origem;
 	private Cidade destino;
 	
@@ -47,9 +48,6 @@ public class Reserva {
 		return this.classeVoo;
 	}
 	
-	public void setIdaEVolta(boolean idaEvolta) {
-		this.idaEvolta = idaEvolta;
-	}
 	public boolean getIdaEVolta() {
 		return this.idaEvolta;
 	}
@@ -74,4 +72,15 @@ public class Reserva {
 	public Cidade getDestino() {
 		return this.destino;
 	}
+	
+	public void setVolta(Reserva volta) {
+		this.volta = volta;
+		this.idaEvolta = true;
+	}
+	
+	public String toString() {
+		return "Numero Reserva: "+this.numReserva+"\nData: "+this.dataVoo+"\nHora: "+this.horaVoo+"\nPreço: "+this.preco+"\nClasse: "+this.classeVoo+"\nPoltrona: "+this.poltrona+"\nOrigem: "+this.origem.toString()+"\nDestino: "+this.destino.toString();
+	}
+	
+	
 }

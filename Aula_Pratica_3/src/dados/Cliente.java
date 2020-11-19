@@ -38,6 +38,13 @@ public class Cliente {
 		return this.telefone;
 	}
 	
+	public String toString() {
+		return "Nome: "+this.nome+"\n CPF: "+this.cpf+"\n Telefone: "+this.telefone+"\n Endereco: "+this.endereco;
+	}
+	
+	public LinkedList <Reserva> getReservas(){
+		return reservas;
+	}
 	
 	public void reservarIda(Reserva reserva) {
 		//este seja apenas para idas
@@ -46,7 +53,16 @@ public class Cliente {
 	
 	public void reservarVolta(Reserva ida, Reserva volta) {
 		//Supondo que este método seja para reservas ida E volta
-		this.reservas.add(ida);
-		this.reservas.add(volta);
+		ida.setVolta(volta);
+	}
+	
+	public boolean equals(Object o) {
+		if(o instanceof Cliente) {
+			Cliente c = (Cliente)o;
+			if (c.getCpf() == this.getCpf()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

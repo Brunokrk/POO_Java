@@ -11,10 +11,14 @@ public class Cidade {
 		return this.nome;
 	}
 	
-	public void setEstado() {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 	public String getEstado() {
 		return this.estado;
+	}
+	
+	public String toString() {
+		return this.nome+", "+this.estado;
 	}
 }
