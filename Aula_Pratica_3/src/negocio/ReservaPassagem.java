@@ -13,6 +13,16 @@ public class ReservaPassagem {
 		quantCidades++;
 	}
 	
+	public Cliente getCliente(int cpf_key) {
+		int a = 0;
+		for(int i=0; i<quantClientes; i++) {
+			if(this.listaDeClientes[i].getCpf()==cpf_key) {
+				return this.listaDeClientes[i];
+			}
+		}
+		return null;
+	}
+	
 	public void cadastrarCliente(Cliente cliente) {
 		listaDeClientes[quantClientes]=cliente;
 		quantClientes++;
@@ -35,8 +45,9 @@ public class ReservaPassagem {
 	}
 	
 	private boolean clienteCadastrado(Cliente cliente) {
+		//Apenas vai retornar true se o cpf for igual
 		for(int i=0; i<quantClientes;i++) {
-			if(listaDeClientes[i].equals(cliente)) {
+			if(listaDeClientes[i].getCpf() == cliente.getCpf()) {
 				return true;
 			}
 		}
