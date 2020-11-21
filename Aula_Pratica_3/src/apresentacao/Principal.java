@@ -133,9 +133,9 @@ public class Principal {
 	public static void mostrarReservas() {
 		System.out.print("Informe o cpf do cliente que deseja mostrar as reservas ");
 		int cpf_aux = Integer.parseInt(leitor.nextLine());
-		LinkedList <Reserva> reservas_aux = reservaPassagem.mostrarReservas(cpf_aux);
-		//Dar um jeito de printar as reservas
-		//Acessar cada elemento da lista de reservas do cliente, e printar a reserva
-		//Lembrar da condição idaEvolta, caso seja true, devemos printar também a volta
+		Cliente cliente_aux = reservaPassagem.getCliente(cpf_aux);
+		for(int i=0; i<cliente_aux.qtd_reservas;i++) {
+			System.out.println(cliente_aux.reservas[i].toString());
+		}
 	}
 }

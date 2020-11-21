@@ -79,7 +79,7 @@ public class Reserva {
 	}
 	
 	public String toString() {
-		return "Numero Reserva: "+this.numReserva+"\nData: "+this.dataVoo+"\nHora: "+this.horaVoo+"\nPreço: "+this.preco+"\nClasse: "+this.classeVoo+"\nPoltrona: "+this.poltrona+"\nOrigem: "+this.origem.toString()+"\nDestino: "+this.destino.toString();
+		return "Numero Reserva: "+this.numReserva+"\nData: "+this.dataVoo+"\nHora: "+this.horaVoo+"\nPreço: "+this.preco+"\nClasse: "+this.classeVoo+"\nPoltrona: "+this.poltrona+"\nOrigem: "+this.origem.toString()+"\nDestino: "+this.destino.toString()+"\nIda e volta:"+this.idaEvolta;
 	}
 	
 	

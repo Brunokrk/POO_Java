@@ -54,7 +54,7 @@ public class ReservaPassagem {
 		return false;
 	}
 	
-	public LinkedList<Reserva> mostrarReservas(int cpf) {
+	public Reserva[] mostrarReservas(int cpf) {
 		for(int i=0; i<quantClientes;i++) {
 			if(listaDeClientes[i].getCpf()==cpf) {
 				return listaDeClientes[i].getReservas();

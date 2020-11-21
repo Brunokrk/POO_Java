@@ -7,7 +7,8 @@ public class Cliente {
 	private String nome;
 	private String endereco;
 	private int telefone;
-	private LinkedList <Reserva> reservas = new LinkedList<Reserva>();
+	public Reserva reservas[] = new Reserva[20];
+	public int qtd_reservas=0;
 	
 	
 	public void setCpf(int cpf) {
@@ -42,13 +43,14 @@ public class Cliente {
 		return "Nome: "+this.nome+"\n CPF: "+this.cpf+"\n Telefone: "+this.telefone+"\n Endereco: "+this.endereco;
 	}
 	
-	public LinkedList <Reserva> getReservas(){
-		return reservas;
+	public Reserva[] getReservas(){
+		return this.reservas;
 	}
 	
 	public void reservarIda(Reserva reserva) {
 		//este seja apenas para idas
-		this.reservas.add(reserva);
+		this.reservas[qtd_reservas]= reserva;
+		this.qtd_reservas++;
 	}
 	
 	public void reservarVolta(Reserva ida, Reserva volta) {
