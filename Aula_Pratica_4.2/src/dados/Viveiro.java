@@ -37,6 +37,10 @@ public class Viveiro {
 		}
 	}
 	
+	public String toString() {
+		return "	Nome: "+this.nome+"\n 	Comprimento: "+this.comprimento+"\n 	Largura: "+this.largura+"\n		Número Animais: "+this.numeroAnimais;
+	}
+	
 	//getters and setters
 	public String getNome() {
 		return nome;

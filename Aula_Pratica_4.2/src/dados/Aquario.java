@@ -13,6 +13,7 @@ public class Aquario extends Viveiro{
 	public float calculaEspaco() {
 		return this.altura *super.comprimento *super.largura;
 	}
+	
 
 	
 	//getters and setters
@@ -30,6 +31,10 @@ public class Aquario extends Viveiro{
 	
 	public void setTemperatura(float temperatura) {
 		this.temperatura = temperatura;
+	}
+	
+	public String toString() {
+		return super.toString() +"\n     Altura: "+this.altura+"\n     Temperatura"+this.temperatura;
 	}
 	
 }

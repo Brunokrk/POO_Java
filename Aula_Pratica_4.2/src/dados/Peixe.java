@@ -22,4 +22,9 @@ public class Peixe extends Animal {
 		this.temperaturaIdeal = temperaturaIdeal;
 	}
 	
+	
+	public String toString() {
+		return "	Temperatura Ideal: "+this.temperaturaIdeal+"\n     Comprimento: "+this.comprimento+"\n     Largura: "+this.largura+"\n     Altura: "+this.altura;
+	}
+	
 }
