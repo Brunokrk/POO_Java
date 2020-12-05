@@ -12,7 +12,7 @@ public class ex1 {
 		int total=0;
 		//gerando array aleatório
 		for(int i=0; i<10; i++) {
-			array[i] = gerador.nextInt(); 
+			array[i] = gerador.nextInt(10); 
 			//System.out.println(array[i]);
 			total += array[i];
 		}
