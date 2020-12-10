@@ -9,6 +9,10 @@ public class Contato {
 		this.telefone = telefone;
 	}
 	
+	public String toString() {
+		return "	"+this.nome+": "+this.telefone;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -22,5 +26,16 @@ public class Contato {
 		this.telefone = telefone;
 	}
 	
-	
+	public boolean equals(Object obj) {
+		if(obj instanceof Contato) {
+			Contato aux = (Contato) obj;
+			if(this.nome.equals(aux.getNome()) && this.telefone==aux.telefone){
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			return false;
+		}
+	}
 }
