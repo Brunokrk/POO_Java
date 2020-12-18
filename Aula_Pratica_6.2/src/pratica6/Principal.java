@@ -10,10 +10,10 @@ public class Principal {
 		List<Integer> resultado;
 		
 		//Fibonacci
-		//gerador = new Fibonacci();
-		//gerador.gerar(random(50));
-		//resultado = gerador.getSequencia();
-		//imprimir("Fibonacci", resultado);
+		gerador = new Fibonacci();
+		gerador.gerar(random(50));
+		resultado = gerador.getSequencia();
+		imprimir("Fibonacci", resultado);
 		
 		//Naturais
 		gerador = new Naturais();
@@ -22,10 +22,10 @@ public class Principal {
 		imprimir("Naturais", resultado);
 		
 		//Quadrados
-		//gerador = new Quadrados();
-		//gerador.gerar(random(50));
-		//resultado = gerador.getSequencia();
-		//imprimir("Quadrados", resultado);	
+		gerador = new Quadrados();
+		gerador.gerar(random(50));
+		resultado = gerador.getSequencia();
+		imprimir("Quadrados", resultado);	
 		
 		//Primos
 		gerador = new Primos();
@@ -34,33 +34,33 @@ public class Principal {
 		imprimir("Primos", resultado);
 		
 		//Fatorial
-		//gerador = new Fatorial();
-		//gerador.gerar(random(50));
-		//resultado = gerador.getSequencia();
-		//imprimir("Fatorial", resultado);	
+		gerador = new Fatorial();
+		gerador.gerar(random(50));
+		resultado = gerador.getSequencia();
+		imprimir("Fatorial", resultado);	
 		
 		//Abundantes
-		//gerador = new Abundantes();
-		//gerador.gerar(random(50));
-		//resultado = gerador.getSequencia();
-		//imprimir("Abundantes", resultado);	
+		gerador = new Abundantes();
+		gerador.gerar(random(12));
+		resultado = gerador.getSequencia();
+		imprimir("Abundantes", resultado);	
 		
 		//Perfeitos
-		//gerador = new Perfeitos();
-		//gerador.gerar(random(50));
-		//resultado = gerador.getSequencia();
-		//imprimir("Perfeitos", resultado);	
+		gerador = new Perfeitos();
+		gerador.gerar(random(5));
+		resultado = gerador.getSequencia();
+		imprimir("Perfeitos", resultado);	
 	}
 	
 	public static void imprimir(String tipo, List<Integer>seq) {
 		if(seq.size()<1) {
-			System.out.println(tipo+" de "+seq.size()+": [ ]");
+			System.out.println(tipo+" de "+seq.size()+": [ ]\n");
 		}else {
-			System.out.println(tipo+" de "+seq.size()+": [");
+			System.out.print(tipo+" de "+seq.size()+": [");
 			for(int i =0; i<seq.size()-1; i++) {
 				System.out.print(seq.get(i) + ", ");
 			}
-			System.out.println(seq.get(seq.size()-1)+"]");
+			System.out.print(seq.get(seq.size()-1)+"]\n");
 		}
 	}
 	
