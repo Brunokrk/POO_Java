@@ -8,4 +8,7 @@ public class ObjetoA {
 		this.idade = aux.idade;
 		this.nome = aux.nome;
 	}
+	public String toString() {
+		return "Nome:"+this.nome;
+	}
 }
