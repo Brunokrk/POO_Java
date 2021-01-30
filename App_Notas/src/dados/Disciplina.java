@@ -6,15 +6,15 @@ public class Disciplina {
 	private String nome;
 	private String professor;
 	private Float media;
-	private Float nota_aprovacao;
+	private Double nota_aprovacao;
 	private boolean situacao = false;//False até que seja aprovado
 	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
 	
 	//Métodos Previstos na Modelagem
-	//		-> cadastrarAvaliacao
-	//		-> excluirAvaliacao
-	//		-> editarAvaliacao
-	//		-> calculoMedia
+	//		-> cadastrarAvaliacao OK
+	//		-> excluirAvaliacao OK
+	//		-> editarAvaliacao OK
+	//		-> calculoMedia OK
 	//		-> notaNecessária
 	
 	
@@ -31,6 +31,17 @@ public class Disciplina {
 			}
 			i++;
 		}
+	}
+	
+	public void notaNecessaria() {
+		this.nota_aprovacao = (-1.5 * this.media) + 12.5;
+	}
+	
+	public void calculoMedia() {
+		for(Avaliacao item : avaliacoes) {
+			this.media += item.getNota();
+		}
+		this.media = this.media / avaliacoes.size();
 	}
 	
 	public void editarAvaliacao(Avaliacao avaliacao_edit, int id_edit) {
@@ -73,11 +84,8 @@ public class Disciplina {
 	public void setMedia(Float media) {
 		this.media = media;
 	}
-	public Float getNota_aprovacao() {
+	public Double getNota_aprovacao() {
 		return nota_aprovacao;
-	}
-	public void setNota_aprovacao(Float nota_aprovacao) {
-		this.nota_aprovacao = nota_aprovacao;
 	}
 	public boolean isSituacao() {
 		return situacao;
