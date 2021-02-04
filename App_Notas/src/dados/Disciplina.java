@@ -15,7 +15,7 @@ public class Disciplina {
 	//		-> excluirAvaliacao OK
 	//		-> editarAvaliacao OK
 	//		-> calculoMedia OK
-	//		-> notaNecessária
+	//		-> notaNecessária OK
 	
 	
 	
@@ -49,6 +49,8 @@ public class Disciplina {
 		//nota id = 2
 		//peso id = 3
 		//data id = 4
+		
+		//botar um identificador não editavel
 		if (id_edit != 1) {
 			for(Avaliacao item : avaliacoes) {
 				if (item.getNome().equals(avaliacao_edit.getNome())) {
