@@ -15,15 +15,14 @@ public class Semestre {
 	public void editarDisciplina(Disciplina disciplina_edit, int id_edit) {
 		//nome id = 1
 		//professor id = 2
-		
-		//botar um identificador não editável
-		if(id_edit !=1) {
 			for(Disciplina item : disciplinas) {
-				if(item.getNome().equals(disciplina_edit.getNome())) {
-					
+				if(disciplina_edit.getCodDisciplina() == item.getCodDisciplina()) {
+					//Sobrescrever Método equal posteriormente
+					item.setNome(disciplina_edit.getNome());
+					item.setProfessor(disciplina_edit.getProfessor());
 				}
 			}
-		}
+		
 	}
 	
 	public void cadastrarDisciplina(Disciplina disciplina) {

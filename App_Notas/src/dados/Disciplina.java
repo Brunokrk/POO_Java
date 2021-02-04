@@ -7,6 +7,7 @@ public class Disciplina {
 	private String professor;
 	private Float media;
 	private Double nota_aprovacao;
+	private String codDisciplina;
 	private boolean situacao = false;//False até que seja aprovado
 	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
 	
@@ -18,11 +19,18 @@ public class Disciplina {
 	//		-> notaNecessária OK
 	
 	
-	
 	public void cadastrarAvaliacao(Avaliacao avaliacao) {
 		this.avaliacoes.add(avaliacao);
 	}
 	
+	public String getCodDisciplina() {
+		return codDisciplina;
+	}
+
+	public void setCodDisciplina(String codDisciplina) {
+		this.codDisciplina = codDisciplina;
+	}
+
 	public void excluirAvaliacao(String nome) {
 		int i=0;
 		for(Avaliacao item : avaliacoes) {
