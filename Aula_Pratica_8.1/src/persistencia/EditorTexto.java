@@ -58,7 +58,7 @@ public class EditorTexto {
 			System.exit(0);
 		}
 		return dados;
-		//Slide 25
+		
 	}
 	
 	

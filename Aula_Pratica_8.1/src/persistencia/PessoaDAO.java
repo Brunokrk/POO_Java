@@ -1,5 +1,8 @@
 package persistencia;
 
+//modelagem exemplo slide 4
+//modelagem exercício slide 55
+
 import java.util.List;
 import dados.Pessoa;
 
