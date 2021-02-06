@@ -52,26 +52,12 @@ public class Disciplina {
 		this.media = this.media / avaliacoes.size();
 	}
 	
-	public void editarAvaliacao(Avaliacao avaliacao_edit, int id_edit) {
-		//nome id = 1
-		//nota id = 2
-		//peso id = 3
-		//data id = 4
-		
-		//botar um identificador não editavel
-		if (id_edit != 1) {
-			for(Avaliacao item : avaliacoes) {
-				if (item.getNome().equals(avaliacao_edit.getNome())) {
-					item.setNota(avaliacao_edit.getNota());
-					item.setPeso(avaliacao_edit.getPeso());
-					item.setData(avaliacao_edit.getData());
-				}
-			}
-		}else if(id_edit == 1) {
-			for(Avaliacao aux : avaliacoes) {
-				if(aux.getData().equals(avaliacao_edit.getData())) {
-					aux.setNome(avaliacao_edit.getNome());
-				}
+	public void editarAvaliacao(Avaliacao avaliacao_edit) {
+		for(Avaliacao item : avaliacoes) {
+			if(item.equals(avaliacao_edit)) {
+				item.setData(avaliacao_edit.getData());
+				item.setNota(avaliacao_edit.getNota());
+				item.setPeso(avaliacao_edit.getPeso());
 			}
 		}
 	}
@@ -125,5 +111,11 @@ public class Disciplina {
 	
 	public String toString() {
 		return "Disciplina: " +this.nome+" Código: "+this.codDisciplina+" Professor: "+this.professor;
+	}
+	
+	public void mostraAvaliações() {
+		for(Avaliacao item : avaliacoes) {
+			System.out.println("| "+item.toString()+" |");
+		}
 	}
 }

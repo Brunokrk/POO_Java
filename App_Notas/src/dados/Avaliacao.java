@@ -45,5 +45,8 @@ public class Avaliacao {
 	public void setData(String data) {
 		this.data = data;
 	}
-
+	
+	public String toString() {
+		return this.data + " " +this.nome+" Nota:" +this.nota +" Peso:"+this.peso;
+	}
 }

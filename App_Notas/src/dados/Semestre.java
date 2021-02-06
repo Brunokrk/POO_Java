@@ -29,8 +29,7 @@ public class Semestre {
 	
 	public void editarDisciplina(Disciplina disciplina_edit) {
 			for(Disciplina item : disciplinas) {
-				if(disciplina_edit.getCodDisciplina() == item.getCodDisciplina()) {
-					//Sobrescrever Método equal posteriormente
+				if(disciplina_edit.equals(item)) {
 					item.setNome(disciplina_edit.getNome());
 					item.setProfessor(disciplina_edit.getProfessor());
 				}
@@ -54,6 +53,14 @@ public class Semestre {
 	public List<Disciplina> getDisciplinas(){
 		return disciplinas;
 	}
+	public Disciplina getDisciplina(String cod) {
+		for(Disciplina item : disciplinas) {
+			if(item.getCodDisciplina().equals(cod)) {
+				return item;
+			}
+		}
+		return null;
+	}
 	
 	public String getIdentificacao() {
 		return identificacao;
@@ -70,5 +77,14 @@ public class Semestre {
 		for(Disciplina item : disciplinas) {
 			System.out.println("| "+item.toString()+" |");
 		}
+	}
+	
+	public boolean verificaPossibilidadeDisciplina(Disciplina d) {
+		for (Disciplina item : disciplinas) {
+			if(item.equals(d)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

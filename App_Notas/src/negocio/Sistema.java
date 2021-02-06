@@ -28,8 +28,8 @@ public class Sistema {
 	public void excluirSemestre(String identificação) {
 		int i =0;
 		for(Semestre item : semestres) {
-			if(item.getIdentificacao()==identificação) {
-				semestres.remove(i);
+			if(item.getIdentificacao().equals(identificação)) {
+				semestres.remove(item);
 			}
 			i++;
 		}
@@ -38,7 +38,11 @@ public class Sistema {
 	public void cadastrarDisciplina(Semestre semestre, Disciplina disciplina) {
 		for(Semestre item : semestres) {
 			if(item.equals(semestre)) {
-				item.cadastrarDisciplina(disciplina);
+				if(item.verificaPossibilidadeDisciplina(disciplina)) {
+					item.cadastrarDisciplina(disciplina);					
+				}else {
+					System.out.println("ERRO 004 - DISCIPLINA JÁ EXISTE");
+				}
 			}
 		}
 	}
@@ -55,7 +59,7 @@ public class Sistema {
 		//Na apresentação, criar um método que identifica a disciplina informando o Código
 		//E criar um método que busca as novas informações
 		for(Semestre item : semestres) {
-			if (item.getIdentificacao() == semestre.getIdentificacao()) {
+			if (item.equals(semestre)) {
 				item.editarDisciplina(disciplina);
 			}
 		}
@@ -89,14 +93,14 @@ public class Sistema {
 		}
 	}
 	
-	public void editarAvaliacao (Semestre semestre, Disciplina disciplina, Avaliacao avaliacao, int id_edit) {
+	public void editarAvaliacao (Semestre semestre, Disciplina disciplina, Avaliacao avaliacao) {
 		for(Semestre item : semestres) {
-			if (item.getIdentificacao() == semestre.getIdentificacao()) {
+			if (item.equals(semestre)) {
 				for(Disciplina second_item : item.disciplinas) {
-					if(second_item.getCodDisciplina() == disciplina.getCodDisciplina()) {
+					if(second_item.equals(disciplina)) {
 						for(Avaliacao third_item : second_item.avaliacoes) {
 							if(third_item.equals(avaliacao)) {
-								second_item.editarAvaliacao(avaliacao, id_edit);
+								second_item.editarAvaliacao(avaliacao);
 							}
 						}
 					}
@@ -107,6 +111,15 @@ public class Sistema {
 	
 	public List<Semestre> getSemestres(){
 		return semestres;
+	}
+	
+	public Semestre getSemestre(String id) {
+		for(Semestre item : semestres) {
+			if(item.getIdentificacao().equals(id)) {
+				return item;
+			}
+		}
+		return null;
 	}
 	
 	public void mostraSemestres() {
@@ -126,7 +139,15 @@ public class Sistema {
 		}
 	}
 	
-	public boolean verificaPossibilidade(Semestre a) {
+	public void mostraAvaliacoes(Disciplina d) {
+		System.out.println("**********AVALIAÇÕES CADASTRADAS**********");
+		for(Avaliacao item : d.avaliacoes) {
+			System.out.println("| "+item.toString()+" |");
+		}
+	
+	}
+	
+	public boolean verificaPossibilidadeSemestre(Semestre a) {
 		for(Semestre item : semestres) {
 			if(item.equals(a)) {
 				return false;
@@ -134,4 +155,15 @@ public class Sistema {
 		}
 		return true;
 	}
+	
+	
+	public boolean verificaPossibilidadeSemestre(String a) {
+		for(Semestre item : semestres) {
+			if(item.getIdentificacao().equals(a)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
