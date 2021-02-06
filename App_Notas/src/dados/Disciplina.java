@@ -9,7 +9,7 @@ public class Disciplina {
 	private Double nota_aprovacao;
 	private String codDisciplina;
 	private boolean situacao = false;//False até que seja aprovado
-	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+	public List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
 	
 	//Métodos Previstos na Modelagem
 	//		-> cadastrarAvaliacao OK
@@ -76,6 +76,25 @@ public class Disciplina {
 		}
 	}
 	
+	@Override
+	public boolean equals (Object obj) {
+		if(obj instanceof Disciplina) {
+			Disciplina aux = (Disciplina) obj;
+			if(this.codDisciplina.equals(aux.codDisciplina)) {
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			return false;
+		}
+	}
+	
+	
+	public List<Avaliacao> getAvaliacoes(){
+		return avaliacoes;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -104,5 +123,7 @@ public class Disciplina {
 		this.situacao = situacao;
 	}
 	
-	
+	public String toString() {
+		return "Disciplina: " +this.nome+" Código: "+this.codDisciplina+" Professor: "+this.professor;
+	}
 }
