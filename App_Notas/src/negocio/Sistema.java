@@ -5,6 +5,16 @@ import java.util.List;
 import dados.Semestre;
 import dados.Disciplina;
 import dados.Avaliacao;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Paragraph;
 
 
 public class Sistema {
@@ -26,19 +36,20 @@ public class Sistema {
 	}
 	
 	public void excluirSemestre(String identificação) {
-		int i =0;
-		for(Semestre item : semestres) {
-			if(item.getIdentificacao().equals(identificação)) {
-				semestres.remove(item);
+		
+		for(int i=0; i<semestres.size();i++) {
+			Semestre s = semestres.get(i);
+			if(s.getIdentificacao().equals(identificação)) {
+				semestres.remove(s);
+				break;
 			}
-			i++;
 		}
 	}
 	
 	public void cadastrarDisciplina(Semestre semestre, Disciplina disciplina) {
 		for(Semestre item : semestres) {
 			if(item.equals(semestre)) {
-				if(item.verificaPossibilidadeDisciplina(disciplina)) {
+				if(item.verificaPossibilidadeAddDisciplina(disciplina)) {
 					item.cadastrarDisciplina(disciplina);					
 				}else {
 					System.out.println("ERRO 004 - DISCIPLINA JÁ EXISTE");
@@ -47,10 +58,10 @@ public class Sistema {
 		}
 	}
 	
-	public void excluirDisciplina(Semestre semestre, String nome) {
+	public void excluirDisciplina(String identificacao, String cod) {
 		for(Semestre item : semestres) {
-			if (item.getIdentificacao() == semestre.getIdentificacao()) {
-				item.excluirDisciplina(nome);
+			if (item.getIdentificacao().equals(identificacao)) {
+				item.excluirDisciplina(cod);
 			}
 		}
 	}
@@ -77,14 +88,14 @@ public class Sistema {
 		}
 	}
 	
-	public void excluirAvaliacao (Semestre semestre, Disciplina disciplina, Avaliacao avaliacao) {
+	public void excluirAvaliacao (String identificacao, String cod, String nome) {
 		for(Semestre item : semestres) {
-			if (item.getIdentificacao() == semestre.getIdentificacao()) {
+			if (item.getIdentificacao().equals(identificacao)) {
 				for(Disciplina second_item : item.disciplinas) {
-					if(second_item.getCodDisciplina() == disciplina.getCodDisciplina()) {
+					if(second_item.getCodDisciplina().equals(cod)) {
 						for(Avaliacao third_item : second_item.avaliacoes) {
-							if(third_item.equals(avaliacao)) {
-								second_item.excluirAvaliacao(avaliacao.getNome());
+							if(third_item.getNome().equals(nome)) {
+								second_item.excluirAvaliacao(nome);
 							}
 						}
 					}
@@ -139,6 +150,15 @@ public class Sistema {
 		}
 	}
 	
+	public void mostraDisciplinas(String identificacao) {
+		System.out.println("**********DISCIPLINAS CADASTRADAS**********");
+		for(Semestre item : semestres) {
+			if(item.getIdentificacao().equals(identificacao)) {			
+				item.mostraDisciplinas();
+			}
+		}
+	}
+	
 	public void mostraAvaliacoes(Disciplina d) {
 		System.out.println("**********AVALIAÇÕES CADASTRADAS**********");
 		for(Avaliacao item : d.avaliacoes) {
@@ -147,7 +167,24 @@ public class Sistema {
 	
 	}
 	
-	public boolean verificaPossibilidadeSemestre(Semestre a) {
+	public void mostraAvaliacoes(String identificacao, String cod) {
+		System.out.println("**********AVALIAÇÕES CADASTRADAS**********");
+		for(Semestre item : semestres) {
+			if(item.getIdentificacao().equals(identificacao)) {
+				for(Disciplina second_item : item.disciplinas) {
+					if(second_item.getCodDisciplina().equals(cod)) {
+						for(Avaliacao third_item : second_item.avaliacoes) {
+							System.out.println("| "+third_item.toString()+" |");
+						}
+					}
+				}
+			}
+			break;
+		}
+		
+	}
+	
+	public boolean verificaPossibilidadeAddSemestre(Semestre a) {
 		for(Semestre item : semestres) {
 			if(item.equals(a)) {
 				return false;
@@ -157,13 +194,113 @@ public class Sistema {
 	}
 	
 	
-	public boolean verificaPossibilidadeSemestre(String a) {
+	public boolean verificaPossibilidadeExclSemestre(String a) {
 		for(Semestre item : semestres) {
 			if(item.getIdentificacao().equals(a)) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public boolean verificaPossibilidadeExclDisciplina(String id, String cod) {
+		for(Semestre item : semestres) {
+			if(item.getIdentificacao().equals(id)) {
+				if(item.verificaPossibilidadeExclDisciplina(cod)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	//----Métodos referentes á Biblioteca itext---- EM ANDAMENTO, NÃO FAZ PARTE DA ENTREGA 2
+	//Posteriormente entrará na persistencia de dados
+	
+	public void gerarPDF(String identificacao) {
+		String nomePDF = "C:\\Users\\pires\\Documents\\GitHub\\poo\\App_Notas\\relatorios\\Semestre" + identificacao+".pdf";
+		Document documentoPDF = new Document(); //documento vazio
+		
+		try {
+			PdfWriter.getInstance(documentoPDF, new FileOutputStream(nomePDF));
+			documentoPDF.open();//abre o documento
+			documentoPDF.setPageSize(PageSize.A4);
+			
+			//Cabeçalho para todos os relatórios---
+			Paragraph p = new Paragraph("Semestre "+identificacao);
+			p.setAlignment(1);
+			documentoPDF.add(p);
+			p = new Paragraph("\n");
+			documentoPDF.add(p);
+			//---
+			//Gerando tabelas
+			for(Semestre item : semestres) {
+				if(item.getIdentificacao().equals(identificacao)) {
+					for(Disciplina second_item : item.disciplinas) {
+						documentoPDF.add(new Paragraph(second_item.toString()));
+						documentoPDF.add(new Paragraph("\n"));
+						PdfPTable table = this.gerarTabelas(identificacao);
+						documentoPDF.add(table);	
+						PdfPTable situacoes = new PdfPTable(2);
+						PdfPCell cel1 = new PdfPCell(new Paragraph("Média"));
+						PdfPCell cel2 = new PdfPCell(new Paragraph("Situação"));
+						situacoes.addCell(cel1);
+						situacoes.addCell(cel2);
+						documentoPDF.add(situacoes);
+					}
+				}
+			}
+			
+			
+			
+			
+			documentoPDF.close();
+		}catch(Exception e) {
+			
+		}
+		
+	}
+	
+	public PdfPTable gerarTabelas(String identificacao) {
+		
+		//EM ANDAMENTO
+		PdfPTable table = new PdfPTable(4);
+		for(Semestre item : semestres) {
+			if(item.getIdentificacao().equals(identificacao)) {
+				for(Disciplina second_item : item.disciplinas) {
+					PdfPCell cel1 = new PdfPCell(new Paragraph("Avaliação"));
+					cel1.setHorizontalAlignment(Element.ALIGN_CENTER);
+					PdfPCell cel2 = new PdfPCell(new Paragraph("Data"));
+					cel2.setHorizontalAlignment(Element.ALIGN_CENTER);
+					PdfPCell cel3 = new PdfPCell(new Paragraph("Peso"));
+					cel3.setHorizontalAlignment(Element.ALIGN_CENTER);
+					PdfPCell cel4 = new PdfPCell(new Paragraph("Nota"));
+					cel4.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cel1);
+					table.addCell(cel2);
+					table.addCell(cel3);
+					table.addCell(cel4);
+					
+					for(Avaliacao av : second_item.avaliacoes) {
+						cel1 = new PdfPCell(new Paragraph(av.getNome()));
+						cel1.setHorizontalAlignment(Element.ALIGN_CENTER);
+						cel2 = new PdfPCell(new Paragraph(av.getData()));
+						cel2.setHorizontalAlignment(Element.ALIGN_CENTER);
+						cel3 = new PdfPCell(new Paragraph(" "+av.getPeso()+" "));
+						cel3.setHorizontalAlignment(Element.ALIGN_CENTER);
+						cel4 = new PdfPCell(new Paragraph(" "+av.getNota()+" "));
+						cel4.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cel1);
+						table.addCell(cel2);
+						table.addCell(cel3);
+						table.addCell(cel4);
+					}
+					
+				}
+			}
+		}
+		return table;
+		
 	}
 
 }

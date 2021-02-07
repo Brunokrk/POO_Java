@@ -40,17 +40,14 @@ public class Semestre {
 		this.disciplinas.add(disciplina);
 	}
 	
-	public void excluirDisciplina(String cod) {
-		
-		for(int i=0; i<disciplinas.size(); i++) {
-			Disciplina d = disciplinas.get(i);
-			
-			if(d.getCodDisciplina().equals(cod)) {
-				disciplinas.remove(d);
-				break;
+	public void excluirDisciplina(String nome) {
+		int i = 0;
+		for(Disciplina item : disciplinas) {
+			if(item.getNome().equals(nome)) {
+				disciplinas.remove(i);
 			}
+			i++;
 		}
-		
 	}
 	
 	public List<Disciplina> getDisciplinas(){
@@ -82,7 +79,7 @@ public class Semestre {
 		}
 	}
 	
-	public boolean verificaPossibilidadeAddDisciplina(Disciplina d) {
+	public boolean verificaPossibilidadeDisciplina(Disciplina d) {
 		for (Disciplina item : disciplinas) {
 			if(item.equals(d)) {
 				return false;
@@ -90,16 +87,4 @@ public class Semestre {
 		}
 		return true;
 	}
-	
-	public boolean verificaPossibilidadeExclDisciplina(String cod) {
-		for (Disciplina item : disciplinas) {
-			if(item.getCodDisciplina().equals(cod)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	
-	
 }

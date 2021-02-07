@@ -32,15 +32,13 @@ public class Disciplina {
 	}
 
 	public void excluirAvaliacao(String nome) {
-		
-		for(int i =0; i<avaliacoes.size(); i++) {
-			Avaliacao av = avaliacoes.get(i);
-			if(av.getNome().equals(nome)) {
-				avaliacoes.remove(av);
-				break;
+		int i=0;
+		for(Avaliacao item : avaliacoes) {
+			if (item.getNome().equals(nome)) {
+				avaliacoes.remove(i);
 			}
+			i++;
 		}
-		
 	}
 	
 	public void notaNecessaria() {

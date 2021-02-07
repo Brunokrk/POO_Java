@@ -27,7 +27,6 @@ public class Main {
 		System.out.println("5 - Excluir Semestre");
 		System.out.println("6 - Excluir Disciplina");
 		System.out.println("7 - Excluir Avaliação");
-		System.out.println("8 - Gerar PDF");
 	}
 	
 	private static void imprimeMenuEdição() {
@@ -48,47 +47,25 @@ public class Main {
 					break;
 				case 1:
 					Semestre a = novoSemestre();
-					if(sistema.verificaPossibilidadeAddSemestre(a)) {
+					if(sistema.verificaPossibilidadeSemestre(a)) {
 						sistema.cadastrarSemestre(a);;						
 					}else {
 						System.out.println("ERRO 003 - SEMESTRE JÁ EXISTE");
 					}
 					break;
 				case 2:
-					Semestre c = identificandoSemestre();
-					if(sistema.verificaPossibilidadeExclSemestre(c.getIdentificacao())) {
-						sistema.cadastrarDisciplina(c, novaDisciplina());						
-					}else {
-						System.out.println("ERRO 004 - SEMESTRE INEXISTENTE");
-					}
+	
+					sistema.cadastrarDisciplina(identificandoSemestre(), novaDisciplina());
 					break;
 				case 3:
 					Semestre b = identificandoSemestre();
-					if(sistema.verificaPossibilidadeExclSemestre(b.getIdentificacao())) {
-						Disciplina d = identificandoDisciplina(b);
-						if(sistema.verificaPossibilidadeExclDisciplina(b.getIdentificacao(), d.getCodDisciplina())) {
-							sistema.cadastrarAvaliacao(b, d, novaAvaliacao());;													
-						}else {
-							System.out.println("ERRO 005 - DISCIPLINA INEXISTENTE");
-						}
-					}else {
-						System.out.println("EROO 004 - SEMESTRE INEXISTENTE");
-					}
+					sistema.cadastrarAvaliacao(b, identificandoDisciplina(b), novaAvaliacao());;
 					break;
 				case 4:
 					editarSemestre();
 					break;
 				case 5:
 					excluirSemestre();
-					break;
-				case 6:
-					excluirDisciplina();
-					break;
-				case 7:
-					excluirAvaliacao();
-					break;
-				case 8:
-					gerarPDF();
 					break;
 				default:
 					System.out.println("Numero inválido");
@@ -225,57 +202,13 @@ public class Main {
 		sistema.mostraSemestres();
 		System.out.println("Informe identificador do semestre que deseja excluir");
 		String in = s.nextLine();
-		if(sistema.verificaPossibilidadeExclSemestre(in)) {			
+		if(sistema.verificaPossibilidadeSemestre(in)) {			
 			sistema.excluirSemestre(in);
 		}else {
 			System.out.println("Semestre não existe");
 		}
 	}
 	
-	private static void excluirDisciplina() {
-		sistema.mostraSemestres();
-		System.out.println("Informe identificador do semestre ");
-		String in = s.nextLine();
-		if(sistema.verificaPossibilidadeExclSemestre(in)) {
-			//semestre existe
-			sistema.mostraDisciplinas(in);
-			System.out.println("Informe o código da disciplina que deseja excluir");
-			String inDisc = s.nextLine();
-			if(sistema.verificaPossibilidadeExclDisciplina(in, inDisc)) {
-				sistema.excluirDisciplina(in, inDisc);
-			}
-		}else {
-			System.out.println("Semestre não existe");
-		}
-	}
 	
-	private static void excluirAvaliacao() {
-		sistema.mostraSemestres();
-		System.out.println("Informe identificador do semestre ");
-		String in = s.nextLine();
-		if(sistema.verificaPossibilidadeExclSemestre(in)) {
-			sistema.mostraDisciplinas(in);
-			System.out.println("Informe o código da disciplina ");
-			String inDisc = s.nextLine();
-			if(sistema.verificaPossibilidadeExclDisciplina(in, inDisc)) {
-				//disciplina existe
-				sistema.mostraAvaliacoes(in, inDisc);
-				System.out.println("Informe o nome da avaliacao que deseja excluir");
-				String av = s.nextLine();
-				sistema.excluirAvaliacao(in, inDisc, av);
-			}
-		}
-	}
-	
-	private static void gerarPDF() {
-		sistema.mostraSemestres();
-		System.out.println("Informe o semestre que deseja emitir relatório");
-		String id = s.nextLine();
-		if(sistema.verificaPossibilidadeExclSemestre(id)) {
-			sistema.gerarPDF(id);		
-		}else {
-			System.out.println("Semestre não existe, não é possível gerar relatório");
-		}
-	}
 	
 }
