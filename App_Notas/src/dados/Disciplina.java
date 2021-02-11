@@ -23,13 +23,6 @@ public class Disciplina {
 		this.avaliacoes.add(avaliacao);
 	}
 	
-	public String getCodDisciplina() {
-		return codDisciplina;
-	}
-
-	public void setCodDisciplina(String codDisciplina) {
-		this.codDisciplina = codDisciplina;
-	}
 
 	public void excluirAvaliacao(String nome) {
 		
@@ -61,6 +54,12 @@ public class Disciplina {
 				item.setNota(avaliacao_edit.getNota());
 				item.setPeso(avaliacao_edit.getPeso());
 			}
+		}
+	}
+	
+	public void mostraAvaliações() {
+		for(Avaliacao item : avaliacoes) {
+			System.out.println("| "+item.toString()+" |");
 		}
 	}
 	
@@ -111,13 +110,16 @@ public class Disciplina {
 		this.situacao = situacao;
 	}
 	
+	public String getCodDisciplina() {
+		return codDisciplina;
+	}
+	
+	public void setCodDisciplina(String codDisciplina) {
+		this.codDisciplina = codDisciplina;
+	}
+	
 	public String toString() {
 		return "Disciplina: " +this.nome+" Código: "+this.codDisciplina+" Professor: "+this.professor;
 	}
 	
-	public void mostraAvaliações() {
-		for(Avaliacao item : avaliacoes) {
-			System.out.println("| "+item.toString()+" |");
-		}
-	}
 }
