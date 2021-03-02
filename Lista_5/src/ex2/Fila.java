@@ -7,17 +7,45 @@ public class Fila<T> {
 	private int max;
 	private List<T> fila = new ArrayList<T>();
 	
-	private Fila(int tam) {
+	public Fila(int tam) {
 		this.max = tam;
 	}
 	
-	private void add(T objeto) throws FilaCheiaException{
-		if(tamanho() == max)
-			throw new FilaCheiaException();
+	public void add(T objeto) {
+		try {
+			if(this.tamanho()==this.max) {
+				throw new FilaCheiaException();
+			}else {
+				this.fila.add(objeto);
+			}
+		}catch(FilaCheiaException fc) {
+			System.out.println(fc);
+		}
+	}
+	
+	public T tirar() {
+		T aux;
+		try {
+			if(this.tamanho()==0) {
+				throw new FilaVaziaException();
+			}else {
+				aux = this.fila.remove(this.fila.size());
+				return aux;
+			}
+		}catch(FilaVaziaException fv) {
+			System.out.println(fv);
+		}
+		return null;
 	}
 	
 	private int tamanho() {
 		return fila.size();
+	}
+	
+	public void printFila() {
+		for(T item : fila) {
+			System.out.println(item.toString());
+		}
 	}
 	
 }
