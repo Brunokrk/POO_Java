@@ -42,9 +42,8 @@ public class Disciplina {
 	
 	public void calculoMedia() {
 		for(Avaliacao item : avaliacoes) {
-			this.media += item.getNota();
+			this.media += item.getNota()* item.getPeso();
 		}
-		this.media = this.media / avaliacoes.size();
 	}
 	
 	public void editarAvaliacao(Avaliacao avaliacao_edit) {

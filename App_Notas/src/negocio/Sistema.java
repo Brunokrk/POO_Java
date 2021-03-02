@@ -214,6 +214,25 @@ public class Sistema {
 		return false;
 	}
 	
+	public void geradorNotasESituacao(String id) {
+		//Este método gera as médias de todas as disciplinas do semestre X, para plotagem no PDF resultante
+		
+		for(Semestre semestre : semestres) {
+			if(semestre.getIdentificacao().equals(id)) {
+				for (Disciplina disciplina : semestre.disciplinas) {
+					disciplina.calculoMedia();
+					if(disciplina.getMedia() < 7.0) {
+						disciplina.setSituacao(false);
+						disciplina.notaNecessaria();
+					}else {
+						disciplina.setSituacao(true);
+					}
+				}
+			}
+		}
+	}
+		
+	
 	//----Métodos referentes á Biblioteca itext---- EM ANDAMENTO, NÃO FAZ PARTE DA ENTREGA 2
 	//Posteriormente entrará na persistencia de dados
 	
@@ -239,7 +258,7 @@ public class Sistema {
 					for(Disciplina second_item : item.disciplinas) {
 						documentoPDF.add(new Paragraph(second_item.toString()));
 						documentoPDF.add(new Paragraph("\n"));
-						PdfPTable table = this.gerarTabelas(identificacao);
+						PdfPTable table = this.gerarTabelas(identificacao, second_item.getCodDisciplina());
 						documentoPDF.add(table);	
 						PdfPTable situacoes = new PdfPTable(2);
 						PdfPCell cel1 = new PdfPCell(new Paragraph("Média"));
@@ -250,10 +269,6 @@ public class Sistema {
 					}
 				}
 			}
-			
-			
-			
-			
 			documentoPDF.close();
 		}catch(Exception e) {
 			
@@ -261,46 +276,47 @@ public class Sistema {
 		
 	}
 	
-	public PdfPTable gerarTabelas(String identificacao) {
-		
+	public PdfPTable gerarTabelas(String identificacao, String codDiscip) {
 		//EM ANDAMENTO
 		PdfPTable table = new PdfPTable(4);
 		for(Semestre item : semestres) {
 			if(item.getIdentificacao().equals(identificacao)) {
 				for(Disciplina second_item : item.disciplinas) {
-					PdfPCell cel1 = new PdfPCell(new Paragraph("Avaliação"));
-					cel1.setHorizontalAlignment(Element.ALIGN_CENTER);
-					PdfPCell cel2 = new PdfPCell(new Paragraph("Data"));
-					cel2.setHorizontalAlignment(Element.ALIGN_CENTER);
-					PdfPCell cel3 = new PdfPCell(new Paragraph("Peso"));
-					cel3.setHorizontalAlignment(Element.ALIGN_CENTER);
-					PdfPCell cel4 = new PdfPCell(new Paragraph("Nota"));
-					cel4.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cel1);
-					table.addCell(cel2);
-					table.addCell(cel3);
-					table.addCell(cel4);
-					
-					for(Avaliacao av : second_item.avaliacoes) {
-						cel1 = new PdfPCell(new Paragraph(av.getNome()));
+					if(second_item.getCodDisciplina().equals(codDiscip)) {
+						
+						PdfPCell cel1 = new PdfPCell(new Paragraph("Avaliação"));
 						cel1.setHorizontalAlignment(Element.ALIGN_CENTER);
-						cel2 = new PdfPCell(new Paragraph(av.getData()));
+						PdfPCell cel2 = new PdfPCell(new Paragraph("Data"));
 						cel2.setHorizontalAlignment(Element.ALIGN_CENTER);
-						cel3 = new PdfPCell(new Paragraph(" "+av.getPeso()+" "));
+						PdfPCell cel3 = new PdfPCell(new Paragraph("Peso"));
 						cel3.setHorizontalAlignment(Element.ALIGN_CENTER);
-						cel4 = new PdfPCell(new Paragraph(" "+av.getNota()+" "));
+						PdfPCell cel4 = new PdfPCell(new Paragraph("Nota"));
 						cel4.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cel1);
 						table.addCell(cel2);
 						table.addCell(cel3);
 						table.addCell(cel4);
+						
+						for(Avaliacao av : second_item.avaliacoes) {
+							cel1 = new PdfPCell(new Paragraph(av.getNome()));
+							cel1.setHorizontalAlignment(Element.ALIGN_CENTER);
+							cel2 = new PdfPCell(new Paragraph(av.getData()));
+							cel2.setHorizontalAlignment(Element.ALIGN_CENTER);
+							cel3 = new PdfPCell(new Paragraph(" "+av.getPeso()+" "));
+							cel3.setHorizontalAlignment(Element.ALIGN_CENTER);
+							cel4 = new PdfPCell(new Paragraph(" "+av.getNota()+" "));
+							cel4.setHorizontalAlignment(Element.ALIGN_CENTER);
+							table.addCell(cel1);
+							table.addCell(cel2);
+							table.addCell(cel3);
+							table.addCell(cel4);
+						}
 					}
 					
 				}
 			}
 		}
 		return table;
-		
 	}
 
 }
