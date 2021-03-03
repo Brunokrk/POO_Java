@@ -7,7 +7,13 @@ public class Pessoa {
 	private int telefone;
 	private Endereco endereco;
 	
-	
+	public Pessoa(int id, String nome, int cpf, int telefone, Endereco endereco) {
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.telefone = telefone;
+		this.endereco = endereco;
+	}
 	
 	public int getId() {
 		return id;

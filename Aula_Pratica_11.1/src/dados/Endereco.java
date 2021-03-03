@@ -6,6 +6,14 @@ public class Endereco {
 	private int numero;
 	private String cidade;
 	private int idPessoa;
+	
+	public Endereco(int id, String rua, int numero, String cidade) {
+		this.id = id;
+		this.rua = rua;
+		this.numero = numero;
+		this.cidade = cidade;
+	}
+	
 	public int getId() {
 		return id;
 	}
