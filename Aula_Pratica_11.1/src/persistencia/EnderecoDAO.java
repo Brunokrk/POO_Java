@@ -81,7 +81,7 @@ public class EnderecoDAO {
 			update.setInt(4, endereco.getIdPessoa());
 			update.executeUpdate();
 		}catch(SQLException e){
-			throw new UpdateException("Erro ao atualizar rua");
+			throw new UpdateException("Erro ao atualizar endereço");
 		}
 	}
 	

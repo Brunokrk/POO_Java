@@ -14,6 +14,10 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 	
+	public Endereco() {
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
