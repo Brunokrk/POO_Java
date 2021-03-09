@@ -87,7 +87,6 @@ public class EnderecoDAO {
 	
 	public void delete(Endereco endereco) throws DeleteException{
 		try {
-			
 			delete.setInt(1, endereco.getIdPessoa());
 			delete.executeUpdate();
 		}catch(SQLException e){

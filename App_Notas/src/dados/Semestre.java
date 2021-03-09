@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Semestre {
+	private int id;
 	private String identificacao;
 	public List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 	
@@ -65,6 +66,16 @@ public class Semestre {
 		return null;
 	}
 	
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getIdentificacao() {
 		return identificacao;
 	}

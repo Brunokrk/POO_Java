@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Disciplina {
+	private int id;
 	private String nome;
 	private String professor;
 	private Float media;
@@ -20,6 +21,7 @@ public class Disciplina {
 	
 	
 	public void cadastrarAvaliacao(Avaliacao avaliacao) {
+		avaliacao.setIdDisciplina(this.id);
 		this.avaliacoes.add(avaliacao);
 	}
 	
@@ -77,6 +79,17 @@ public class Disciplina {
 	}
 	
 	
+	
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 	public List<Avaliacao> getAvaliacoes(){
 		return avaliacoes;
 	}
