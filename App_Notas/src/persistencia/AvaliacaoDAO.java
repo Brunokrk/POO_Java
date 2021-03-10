@@ -1,7 +1,6 @@
 package persistencia;
 
 import java.sql.*;
-
 import dados.Avaliacao;
 
 
@@ -12,6 +11,7 @@ public class AvaliacaoDAO {
 	private PreparedStatement insert;
 	private PreparedStatement delete;
 	private PreparedStatement update;
+	private PreparedStatement deleteAll;//deleta todas as avaliações de uma Disciplina X
 	
 	public static AvaliacaoDAO getInstance() {
 		if(instance == null) {
@@ -29,6 +29,7 @@ public class AvaliacaoDAO {
 			select = conexao.prepareStatement("select * from avaliacao where id_avaliacao = ?");
 			update = conexao.prepareStatement("update endereco set id_disciplina = ?, nome = ?, nota = ?, peso = ?, dia = ?, where id_avaliacao = ? ");
 			delete = conexao.prepareStatement("delete from avaliacao where id_avaliacao = ?");
+			deleteAll = conexao.prepareStatement("delete from avaliacao where id_disciplina = ?");
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -102,6 +103,17 @@ public class AvaliacaoDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteAll(int id_disciplina) {
+		try {
+			delete.setInt(1, id_disciplina);
+			delete.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
 
 

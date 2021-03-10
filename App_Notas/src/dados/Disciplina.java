@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Disciplina {
 	private int id;
+	private int idSemestre;
 	private String nome;
 	private String professor;
 	private Float media;
@@ -80,6 +81,21 @@ public class Disciplina {
 	
 	
 	
+	public int getIdSemestre() {
+		return idSemestre;
+	}
+
+
+	public void setIdSemestre(int idSemestre) {
+		this.idSemestre = idSemestre;
+	}
+
+
+	public void setNota_aprovacao(Double nota_aprovacao) {
+		this.nota_aprovacao = nota_aprovacao;
+	}
+
+
 	public int getId() {
 		return id;
 	}

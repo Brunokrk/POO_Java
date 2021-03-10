@@ -38,6 +38,7 @@ public class Semestre {
 	}
 	
 	public void cadastrarDisciplina(Disciplina disciplina) {
+		disciplina.setIdSemestre(this.id);
 		this.disciplinas.add(disciplina);
 	}
 	
