@@ -7,6 +7,8 @@ import dados.Disciplina;
 import dados.Avaliacao;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -15,24 +17,23 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Paragraph;
+import persistencia.*;
+import excecoes.*;
 
 
 public class Sistema {
-	private List<Semestre> semestres = new ArrayList<Semestre>();
-	
-	//Métodos previstos na modelagem
-	//cadastrarSemestre OK
-	//excluirSemestre OK
-	//editarSemestre ??
-	//cadastrarDisciplina OK
-	//excluirDisciplina OK
-	//editarDisciplina OK
-	//cadastrarAvaliacao OK
-	//excluirAvaliacao OK
-	//editarAvaliacao
+	private List<Semestre> semestres;
+	private SemestreDAO semestreDAO; 
+	private DisciplinaDAO disciplinaDAO;
+	private AvaliacaoDAO avaliacaoDAO;
+
+	public Sistema() {
+		semestres = semestreDAO.getInstance().selectAll();
+	}
 	
 	public void cadastrarSemestre(Semestre semestre) {
 		this.semestres.add(semestre);
+		semestreDAO.getInstance().insert(semestre);
 	}
 	
 	public void excluirSemestre(String identificação) {
@@ -40,6 +41,8 @@ public class Sistema {
 		for(int i=0; i<semestres.size();i++) {
 			Semestre s = semestres.get(i);
 			if(s.getIdentificacao().equals(identificação)) {
+				Semestre aux = semestreDAO.getInstance().select(s.getId());
+				semestreDAO.getInstance().delete(aux);
 				semestres.remove(s);
 				break;
 			}
@@ -50,7 +53,9 @@ public class Sistema {
 		for(Semestre item : semestres) {
 			if(item.equals(semestre)) {
 				if(item.verificaPossibilidadeAddDisciplina(disciplina)) {
-					item.cadastrarDisciplina(disciplina);					
+					item.cadastrarDisciplina(disciplina);
+					disciplinaDAO.getInstance().insert(disciplina);
+					
 				}else {
 					System.out.println("ERRO 004 - DISCIPLINA JÁ EXISTE");
 				}
@@ -61,17 +66,29 @@ public class Sistema {
 	public void excluirDisciplina(String identificacao, String cod) {
 		for(Semestre item : semestres) {
 			if (item.getIdentificacao().equals(identificacao)) {
-				item.excluirDisciplina(cod);
+				List<Disciplina> disciplinas = disciplinaDAO.getInstance().selectAll(item.getId());
+				
+				for(Disciplina dis : disciplinas) {
+					if(dis.getCodDisciplina().equals(cod)) {
+						disciplinaDAO.getInstance().delete(dis);
+						item.excluirDisciplina(cod);
+					}
+				}
 			}
 		}
 	}
 	
-	public void editarDisciplina(Semestre semestre, Disciplina disciplina) {
-		//Na apresentação, criar um método que identifica a disciplina informando o Código
+	public void editarDisciplina(Disciplina disciplinaA, Semestre semestre, Disciplina disciplinaB) {
 		//E criar um método que busca as novas informações
+		disciplinaB.setId(disciplinaA.getId());
 		for(Semestre item : semestres) {
 			if (item.equals(semestre)) {
-				item.editarDisciplina(disciplina);
+				for(Disciplina dis : item.getDisciplinas()) {
+					if(dis.equals(disciplinaB)) {
+						disciplinaDAO.getInstance().update(disciplinaB);	
+						item.editarDisciplina(disciplinaA, disciplinaB);
+					}
+				}
 			}
 		}
 	}
@@ -82,6 +99,8 @@ public class Sistema {
 				for(Disciplina second_item : item.disciplinas) {
 					if(second_item.equals(disciplina)) {
 						second_item.cadastrarAvaliacao(avaliacao);
+						avaliacaoDAO.getInstance().insert(avaliacao);
+						disciplinaDAO.getInstance().updateMedias( second_item.getId());
 					}
 				}
 			}
@@ -93,8 +112,11 @@ public class Sistema {
 			if (item.getIdentificacao().equals(identificacao)) {
 				for(Disciplina second_item : item.disciplinas) {
 					if(second_item.getCodDisciplina().equals(cod)) {
-						for(Avaliacao third_item : second_item.avaliacoes) {
-							if(third_item.getNome().equals(nome)) {
+						//achou a disciplina que contem a avaliacao
+						List<Avaliacao> avs = avaliacaoDAO.getInstance().selectAll(second_item.getId());
+						for(Avaliacao av : avs) {
+							if(av.getNome().equals(nome)) {
+								avaliacaoDAO.getInstance().delete(av);
 								second_item.excluirAvaliacao(nome);
 							}
 						}
@@ -137,6 +159,7 @@ public class Sistema {
 		System.out.println("**********SEMESTRES CADASTRADOS**********");
 		for(Semestre item : semestres) {
 			System.out.println("        | "+item.toString()+" | ");
+			//mostraDisciplinas(item);
 		}
 	}
 	
@@ -261,8 +284,9 @@ public class Sistema {
 						PdfPTable table = this.gerarTabelas(identificacao, second_item.getCodDisciplina());
 						documentoPDF.add(table);	
 						PdfPTable situacoes = new PdfPTable(2);
-						PdfPCell cel1 = new PdfPCell(new Paragraph("Média"));
-						PdfPCell cel2 = new PdfPCell(new Paragraph("Situação"));
+						PdfPCell cel1 = new PdfPCell(new Paragraph("Média: "+second_item.getMedia()));
+						second_item.notaNecessaria();
+						PdfPCell cel2 = new PdfPCell(new Paragraph("Situação: "+ second_item.isSituacao()+"    Necessário: "+second_item.getNota_aprovacao()));
 						situacoes.addCell(cel1);
 						situacoes.addCell(cel2);
 						documentoPDF.add(situacoes);

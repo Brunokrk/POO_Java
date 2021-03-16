@@ -1,30 +1,33 @@
 package persistencia;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Conexao {
+
 	private static Connection conexao = null;
+	
+	
 	private Conexao() {
 		
 	}
-	public static Connection getConexao(){
+	
+	
+	public static Connection getConexao() {
 		if(conexao == null) {
-			String url = "jdbc:postgresql://localhost:5432/appNotas";
+			String url = "jdbc:postgresql://localhost:5432/bancoapp";
 			String usuario = "postgres";
 			String senha = "17012001";
-			
 			try {
 				Class.forName("org.postgresql.Driver");
 				conexao = DriverManager.getConnection(url, usuario, senha);
+				System.out.println("Conexao estabelecida.");
 				
-			}catch(ClassNotFoundException e) {
-				e.printStackTrace();
-			}catch(SQLException e) {
+			}catch(ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
+			
 		}
 		return conexao;
 	}
 }
+

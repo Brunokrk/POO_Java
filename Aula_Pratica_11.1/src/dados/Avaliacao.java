@@ -31,13 +31,6 @@ public class Avaliacao {
 		this.data = data;
 	}
 	
-	public Avaliacao( String nome, Double nota, Double peso, String data){
-		this.nome = nome;
-		this.nota = nota;
-		this.peso = peso;
-		this.data = data;
-	}
-	
 	public Avaliacao(){
 		
 	}

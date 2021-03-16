@@ -18,12 +18,6 @@ public class Semestre {
 		this.identificacao = identi;
 	}
 	
-	public Semestre(int id, String identi, List<Disciplina> disciplinas) {
-		this.id = id;
-		this.identificacao = identi;
-		this.disciplinas = disciplinas;
-	}
-	
 	public Semestre() {
 		
 	}
@@ -43,10 +37,11 @@ public class Semestre {
 
 	}
 	
-	public void editarDisciplina(Disciplina disciplinaA, Disciplina disciplina_edit) {
+	public void editarDisciplina(Disciplina disciplina_edit) {
 			for(Disciplina item : disciplinas) {
-				if(disciplinaA.equals(item)) {
-					item = disciplina_edit;
+				if(disciplina_edit.equals(item)) {
+					item.setNome(disciplina_edit.getNome());
+					item.setProfessor(disciplina_edit.getProfessor());
 				}
 			}
 	}
@@ -105,7 +100,6 @@ public class Semestre {
 	public void mostraDisciplinas() {
 		for(Disciplina item : disciplinas) {
 			System.out.println("| "+item.toString()+" |");
-			//item.mostraAvaliações();
 		}
 	}
 	
@@ -130,3 +124,4 @@ public class Semestre {
 	
 	
 }
+

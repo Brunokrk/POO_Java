@@ -25,15 +25,7 @@ public class Disciplina {
 	}
 	
 	public Disciplina(int id_s, int id_d, String nome, String cod, String professor, Double media, Double nota_apro, Boolean situ, List<Avaliacao> lista ) {
-		this.id = id_d;
-		this.idSemestre = id_s;
-		this.nome = nome;
-		this.professor = professor;
-		this.media = media;
-		this.nota_aprovacao = nota_apro;
-		this.situacao = situ;
-		this.avaliacoes = lista;
-		this.codDisciplina = cod;
+		
 	}
 	
 	public void cadastrarAvaliacao(Avaliacao avaliacao) {
@@ -88,7 +80,7 @@ public class Disciplina {
 	public boolean equals (Object obj) {
 		if(obj instanceof Disciplina) {
 			Disciplina aux = (Disciplina) obj;
-			if(this.id == aux.id) {
+			if(this.codDisciplina.equals(aux.codDisciplina)) {
 				return true;
 			}else {
 				return false;
