@@ -5,6 +5,8 @@ import java.util.List;
 import dados.Semestre;
 import dados.Disciplina;
 import dados.Avaliacao;
+
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,6 +24,7 @@ import excecoes.*;
 
 
 public class Sistema {
+	private static Sistema instance = null;
 	private List<Semestre> semestres;
 	private SemestreDAO semestreDAO; 
 	private DisciplinaDAO disciplinaDAO;
@@ -29,6 +32,13 @@ public class Sistema {
 
 	public Sistema() {
 		semestres = semestreDAO.getInstance().selectAll();
+	}
+	
+	public static Sistema getInstance() {
+		if (instance == null) {
+			instance = new Sistema();
+		}
+		return instance;
 	}
 	
 	public void cadastrarSemestre(Semestre semestre) {

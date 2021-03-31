@@ -12,15 +12,16 @@ import excecoes.*;
 
 
 public class TestesBanco {
-	private static Sistema sistema = new Sistema();
+	//private static Sistema sistema = Sistema.getInstance();
 
 	public static void main(String[] args) {
 		
-		SemestreDAO semestreDAO = SemestreDAO.getInstance();
-		DisciplinaDAO disciplinaDAO = DisciplinaDAO.getInstance();
+		//SemestreDAO semestreDAO = SemestreDAO.getInstance();
+		//DisciplinaDAO disciplinaDAO = DisciplinaDAO.getInstance();
 		
 		//Semestre s1 = new Semestre();
-		//s1.setIdentificacao("2021-1");
+		//s1.setIdentificacao("TESTE-TESTE");
+		//sistema.cadastrarSemestre(s1);
 		
 		//Semestre s2 = new Semestre();
 		//s2.setIdentificacao("2021-2");
@@ -62,10 +63,10 @@ public class TestesBanco {
 		//sistema.editarDisciplina(disciplinaDAO.select(5),semestreDAO.select(12), d1);
 		
 		
-		Avaliacao av1 = new Avaliacao("P1", 7.5, 0.50, "17-01-01");
-		Avaliacao av2 = new Avaliacao("P2", 7.0, 0.50, "18-01-01");
-		sistema.cadastrarAvaliacao(semestreDAO.select(12), disciplinaDAO.select(5), av1);
-		sistema.cadastrarAvaliacao(semestreDAO.select(12), disciplinaDAO.select(5), av2);
+		//Avaliacao av1 = new Avaliacao("P1", 7.5, 0.50, "17-01-01");
+		//Avaliacao av2 = new Avaliacao("P2", 7.0, 0.50, "18-01-01");
+		//sistema.cadastrarAvaliacao(semestreDAO.select(12), disciplinaDAO.select(5), av1);
+		//sistema.cadastrarAvaliacao(semestreDAO.select(12), disciplinaDAO.select(5), av2);
 		//sistema.excluirAvaliacao("2021-1", "M4", "P1");
 		
 		//sistema.mostraSemestres();
