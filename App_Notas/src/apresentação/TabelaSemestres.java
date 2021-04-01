@@ -29,8 +29,7 @@ public class TabelaSemestres extends AbstractTableModel{
 		return colunas[column];
 	}
 	
-	public void adicionaSemestre(Semestre semestre) {
-		sistema.cadastrarSemestre(semestre);
+	public void adicionaSemestre() {
 		fireTableStructureChanged();
 	}
 	

@@ -29,9 +29,5 @@ public class Aplicativo extends JFrame {
 		this.add(new AbasApp());
 		
 		
-		
-		
-		//pane.addTab("Semestres", null, painelSemestre, "Informações semestres");
-		
 	}
 }

@@ -20,7 +20,7 @@ public class Conexao {
 			try {
 				Class.forName("org.postgresql.Driver");
 				conexao = DriverManager.getConnection(url, usuario, senha);
-				System.out.println("Conexao estabelecida.");
+				//System.out.println("Conexao estabelecida.");
 				
 			}catch(ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
