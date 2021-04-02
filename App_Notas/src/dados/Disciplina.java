@@ -8,7 +8,7 @@ public class Disciplina {
 	private String nome;
 	private String professor;
 	private Double media = 0.0;
-	private Double nota_aprovacao;
+	private Double nota_aprovacao =0.0;
 	private String codDisciplina;
 	private boolean situacao = false;//False até que seja aprovado
 	public List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
@@ -166,7 +166,7 @@ public class Disciplina {
 	}
 	
 	public String toString() {
-		return "Disciplina: " +this.nome+" Código: "+this.codDisciplina+" Professor: "+this.professor;
+		return this.codDisciplina +": "+ this.nome;
 	}
 	
 }

@@ -22,6 +22,7 @@ import negocio.Sistema;
 
 
 public class PainelSemestres extends JPanel {
+	
 	public PainelSemestres() {
 		Sistema sistema = Sistema.getInstance();
 		JTextField cadastroField = new JTextField();
@@ -30,6 +31,7 @@ public class PainelSemestres extends JPanel {
 		JLabel infoExclusaoField = new JLabel("Selecione o Semestre para excluir:");
 		JLabel infoGerRelaField = new JLabel("Selecione o Semestre para gerar um Relatório");
 		JComboBox<Semestre> boxSemestres = new JComboBox<Semestre>();
+		//BoxSemestres box = BoxSemestres.getInstance();
 		JButton btnCdstSem = new JButton("Cadastrar"); 
 		JButton btnExclSem = new JButton("Excluir");
 		JButton btnGerRela = new JButton("Gerar");
@@ -64,6 +66,7 @@ public class PainelSemestres extends JPanel {
 				sistema.cadastrarSemestre(semestre);
 				Semestre nvSemestre = sistema.getSemestre(semestre.getIdentificacao());
 				boxSemestres.addItem(nvSemestre);
+
 				itensTabSem.adicionaSemestre();
 			}
 		});
@@ -116,7 +119,5 @@ public class PainelSemestres extends JPanel {
 		add(btnGerRela);
 		
 	}
-
-	
 	
 }

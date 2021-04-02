@@ -34,7 +34,7 @@ public class TestesBanco {
 		
 		//Disciplina d1 = new Disciplina();
 		//d1.setIdSemestre(3);
-		//d1.setCodDisciplina("POO001");
+		//d1.setCodDisciplina("ANN001");
 		//d1.setNome("Programação Orientada a Objetos");		
 		//d1.setProfessor("Fabiano Baldo");
 		//d1.setNota_aprovacao(0.0);
