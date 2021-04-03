@@ -28,6 +28,5 @@ public class Aplicativo extends JFrame {
 		setResizable(false);
 		this.add(new AbasApp());
 		
-		
 	}
 }

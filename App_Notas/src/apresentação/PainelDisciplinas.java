@@ -47,6 +47,8 @@ public class PainelDisciplinas extends JPanel {
 		JButton btnCdstDisci = new JButton("Cadastrar");
 		JComboBox<Disciplina> boxDisciplinas = new JComboBox<Disciplina>();
 		JButton btnSelectSem = new JButton("Selecionar");
+		JButton btnDeleteDis = new JButton("Excluir");
+		JButton btnEditarDis = new JButton ("Editar");
 		
 		btnAtualizarDados.setBounds(345, 190, 200, 20);
 		btnAtualizarDados.addActionListener(new ActionListener() {
@@ -98,6 +100,9 @@ public class PainelDisciplinas extends JPanel {
 				disciplina.setCodDisciplina(codDField.getText());
 				disciplina.setProfessor(profField.getText());
 				sistema.cadastrarDisciplina(semestre, disciplina);
+				nomeField.setText("");
+				codDField.setText("");
+				profField.setText("");
 			}
 		});
 		cadastro.add(btnCdstDisci);
@@ -110,7 +115,6 @@ public class PainelDisciplinas extends JPanel {
 		atualizacao.setBorder(BorderFactory.createTitledBorder(cdstBorder, "Atualizar ou Excluir Disciplina"));
 		atualizacao.setLayout(null);
 		add(atualizacao);
-		boxDisciplinas.setBounds(10,20, 180, 20);
 		infoNomeLabel2.setBounds(10,60, 50, 20);
 		infoCodDLabel2.setBounds(10,90, 50, 20);
 		infoProfLabel2.setBounds(10,120, 100, 20);
@@ -123,11 +127,66 @@ public class PainelDisciplinas extends JPanel {
 		atualizacao.add(nomeField2);
 		atualizacao.add(codDField2);
 		atualizacao.add(profField2);
+		boxDisciplinas.setBounds(10,20, 180, 20);
+		boxDisciplinas.setBackground(Color.LIGHT_GRAY);
+		boxDisciplinas.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED) {
+					Disciplina aux = (Disciplina) e.getItem();
+					nomeField2.setText(aux.getNome());
+					codDField2.setText(aux.getCodDisciplina());
+					profField2.setText(aux.getProfessor());
+				}
+			}
+		});
 		atualizacao.add(boxDisciplinas);
 		
-			//Exclusão de uma disciplina
-			//Semestre aux = boxSemestres.getSelectedItem();
-			//for(Disciplina d : boxSemestres.getS)
+			//Botão excluir
+		btnDeleteDis.setBounds(10, 150, 180, 20);
+		btnDeleteDis.setBackground(Color.WHITE);
+		btnDeleteDis.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//Funcionalidades botão de exclusão
+				Semestre s = (Semestre)boxSemestres.getSelectedItem();
+				Disciplina d = (Disciplina)boxDisciplinas.getSelectedItem();
+				sistema.excluirDisciplina(s.getIdentificacao(), d.getCodDisciplina());
+				boxDisciplinas.removeItem(boxDisciplinas.getSelectedItem());
+				nomeField2.setText("");
+				codDField2.setText("");
+				profField2.setText("");
+			}
+		});
+		atualizacao.add(btnDeleteDis);
+		
+		btnEditarDis.setBounds(10, 180, 180, 20);
+		btnEditarDis.setBackground(Color.white);
+		btnEditarDis.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//Funcionalidades botão de EDITAR
+				//pegar disciplinaA
+				Disciplina A = (Disciplina)boxDisciplinas.getSelectedItem();
+				Disciplina B = new Disciplina();
+				B.setNome(nomeField2.getText());
+				B.setCodDisciplina(codDField2.getText());
+				B.setProfessor(profField2.getText());
+				B.setMedia(A.getMedia());
+				B.setIdSemestre(A.getIdSemestre());
+				B.setId(A.getId());
+				B.setNota_aprovacao(A.getNota_aprovacao());
+				B.setSituacao(A.isSituacao());
+				sistema.editarDisciplina(A, (Semestre)boxSemestres.getSelectedItem(), B);
+				int i = boxDisciplinas.getSelectedIndex();
+				boxDisciplinas.removeItem(boxDisciplinas.getSelectedItem());
+				boxDisciplinas.insertItemAt(B, i);
+				nomeField2.setText("");
+				codDField2.setText("");
+				profField2.setText("");
+			}
+		});
+		atualizacao.add(btnEditarDis);
 		
 		
 		//escolha do semestre em questão para operações
