@@ -49,9 +49,23 @@ public class PainelAvaliacoes extends JPanel{
 		JTextField dataField2 = new JTextField();
 		JTextField notaField2 = new JTextField();
 		JTextField pesoField2 = new JTextField();
-		JButton btnCdstDisci = new JButton("Cadastrar");
-		JButton btnEditarDis = new JButton ("Editar");
-		JButton btnDeleteDis = new JButton("Excluir");
+		JButton btnCdstAva = new JButton("Cadastrar");
+		JButton btnEditarAva = new JButton ("Editar");
+		JButton btnDeleteAva = new JButton("Excluir");
+		JButton btnAtualizarDados = new JButton("Refresh");
+		
+		btnAtualizarDados.setBounds(345, 190, 200, 20);
+		btnAtualizarDados.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				List<Semestre> aux = sistema.getSemestres();
+				boxSemestres.removeAllItems();
+				for(Semestre s : aux) {
+					boxSemestres.addItem(s);
+				}
+			}
+		});
+		add(btnAtualizarDados);
 		
 		//Painel de Cadastro
 		JPanel cadastro = new JPanel();
@@ -77,9 +91,9 @@ public class PainelAvaliacoes extends JPanel{
 		cadastro.add(notaField2);
 		cadastro.add(dataField2);
 		cadastro.add(pesoField2);
-		btnCdstDisci.setBounds(10, 150, 180, 20);
-		btnCdstDisci.setBackground(Color.WHITE);
-		btnCdstDisci.addActionListener(new ActionListener() {
+		btnCdstAva.setBounds(10, 150, 180, 20);
+		btnCdstAva.setBackground(Color.WHITE);
+		btnCdstAva.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Funcionalidades do botão
@@ -99,7 +113,7 @@ public class PainelAvaliacoes extends JPanel{
 				
 			}
 		});
-		cadastro.add(btnCdstDisci);
+		cadastro.add(btnCdstAva);
 		
 		
 		
@@ -136,8 +150,29 @@ public class PainelAvaliacoes extends JPanel{
 		dataField.setBounds(60, 80, 200, 20);
 		notaField.setBounds(60, 110, 200, 20);
 		pesoField.setBounds(60, 140, 200, 20);
-		btnEditarDis.setBounds(10, 170, 280, 20);
-		btnDeleteDis.setBounds(10, 195, 280, 20);
+		btnEditarAva.setBounds(10, 170, 280, 20);
+		btnEditarAva.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//sistema.editarAvaliacao(semestre, disciplina, avaliacao);
+			}
+		});
+		btnDeleteAva.setBounds(10, 195, 280, 20);
+		btnDeleteAva.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Avaliacao av = (Avaliacao)boxAvaliacoes.getSelectedItem();
+				Disciplina di = (Disciplina)boxDisciplinas.getSelectedItem();
+				Semestre se = (Semestre)boxSemestres.getSelectedItem();
+				sistema.excluirAvaliacao(se.getIdentificacao(), di.getCodDisciplina(), av.getNome());
+				boxAvaliacoes.removeItem(boxAvaliacoes.getSelectedItem());
+				nomeField.setText("");
+				dataField.setText("");
+				notaField.setText("");
+				pesoField.setText("");
+			}
+			
+		});
 		atualizacao.add(nomeField);
 		atualizacao.add(dataField);
 		atualizacao.add(notaField);
@@ -146,8 +181,8 @@ public class PainelAvaliacoes extends JPanel{
 		atualizacao.add(infoDataLabel);
 		atualizacao.add(infoNotaLabel);
 		atualizacao.add(infoPesoLabel);
-		atualizacao.add(btnDeleteDis);
-		atualizacao.add(btnEditarDis);
+		atualizacao.add(btnDeleteAva);
+		atualizacao.add(btnEditarAva);
 		
 		
 		
