@@ -35,7 +35,7 @@ public class AvaliacaoDAO {
 			selectNewId = conexao.prepareStatement("select nextval('id_avaliacao')");
 			insert = conexao.prepareStatement("insert into avaliacao values (?,?,?,?,?,?)");
 			select = conexao.prepareStatement("select * from avaliacao where id = ?");
-			update = conexao.prepareStatement("update avaliacao set idDisciplina = ?, nome = ?, nota = ?, peso = ?, dia = ?, where id= ? ");
+			update = conexao.prepareStatement("update avaliacao set idDisciplina = ?, nome = ?, nota = ?, peso = ?, dia = ? where id= ? ");
 			delete = conexao.prepareStatement("delete from avaliacao where id = ?");
 			deleteAll = conexao.prepareStatement("delete from avaliacao where idDisciplina = ?");
 			selectAll = conexao.prepareStatement("select * from avaliacao where idDisciplina = ?");
@@ -94,11 +94,12 @@ public class AvaliacaoDAO {
 	
 	public void update(Avaliacao avaliacao){
 		try {
-			update.setInt(1, avaliacao.getId());
+			update.setInt(1, avaliacao.getIdDisciplina());
 			update.setString(2,  avaliacao.getNome());
 			update.setDouble(3, avaliacao.getNota());
 			update.setDouble(4, avaliacao.getPeso());
 			update.setString(5, avaliacao.getData());
+			update.setInt(6, avaliacao.getId());
 			update.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

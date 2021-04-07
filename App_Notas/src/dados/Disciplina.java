@@ -60,6 +60,7 @@ public class Disciplina {
 	}
 	
 	public void calculoMedia() {
+		this.media = 0.0;
 		for(Avaliacao item : avaliacoes) {
 			this.media += item.getNota()* item.getPeso();
 		}
@@ -74,6 +75,14 @@ public class Disciplina {
 				item.setData(avaliacao_edit.getData());
 				item.setNota(avaliacao_edit.getNota());
 				item.setPeso(avaliacao_edit.getPeso());
+			}
+		}
+	}
+	
+	public void editarAvaliacao(Avaliacao avA, Avaliacao avB) {
+		for (Avaliacao item : avaliacoes) {
+			if(avA.equals(item)) {
+				item = avB;
 			}
 		}
 	}

@@ -54,7 +54,7 @@ public class PainelAvaliacoes extends JPanel{
 		JButton btnDeleteAva = new JButton("Excluir");
 		JButton btnAtualizarDados = new JButton("Refresh");
 		
-		btnAtualizarDados.setBounds(345, 190, 200, 20);
+		btnAtualizarDados.setBounds(285, 190, 200, 20);
 		btnAtualizarDados.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -81,8 +81,8 @@ public class PainelAvaliacoes extends JPanel{
 		infoNotaLabel2.setBounds(10, 120,50, 20);
 		nomeField2.setBounds(60, 30, 120, 20);
 		dataField2.setBounds(60, 60, 120, 20);
-		notaField2.setBounds(60, 90, 120, 20);
-		pesoField2.setBounds(60, 120, 120, 20);
+		notaField2.setBounds(60, 120, 120, 20);
+		pesoField2.setBounds(60, 90, 120, 20);
 		cadastro.add(infoNomeLabel2);
 		cadastro.add(infoDataLabel2);
 		cadastro.add(infoPesoLabel2);
@@ -151,13 +151,26 @@ public class PainelAvaliacoes extends JPanel{
 		notaField.setBounds(60, 110, 200, 20);
 		pesoField.setBounds(60, 140, 200, 20);
 		btnEditarAva.setBounds(10, 170, 280, 20);
+		btnEditarAva.setBackground(Color.WHITE);
 		btnEditarAva.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//sistema.editarAvaliacao(semestre, disciplina, avaliacao);
+				Avaliacao avB = new Avaliacao();
+				avB.setNome(nomeField.getText());
+				avB.setData(dataField.getText());
+				avB.setNota(Double.parseDouble(notaField.getText()));
+				avB.setPeso(Double.parseDouble(pesoField.getText()));
+				Avaliacao avA = (Avaliacao)boxAvaliacoes.getSelectedItem();
+				Semestre semestre = (Semestre)boxSemestres.getSelectedItem();
+				Disciplina disciplina = (Disciplina)boxDisciplinas.getSelectedItem();				
+				sistema.editarAvaliacao(avA, avB, semestre, disciplina);
+				int i = boxAvaliacoes.getSelectedIndex();
+				boxAvaliacoes.removeItem(boxAvaliacoes.getSelectedItem());
+				boxAvaliacoes.insertItemAt(avB,i);
 			}
 		});
 		btnDeleteAva.setBounds(10, 195, 280, 20);
+		btnDeleteAva.setBackground(Color.WHITE);
 		btnDeleteAva.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

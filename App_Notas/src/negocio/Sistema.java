@@ -6,7 +6,8 @@ import dados.Semestre;
 import dados.Disciplina;
 import dados.Avaliacao;
 
-
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -110,7 +111,26 @@ public class Sistema {
 					if(second_item.equals(disciplina)) {
 						second_item.cadastrarAvaliacao(avaliacao);
 						avaliacaoDAO.getInstance().insert(avaliacao);
-						disciplinaDAO.getInstance().updateMedias( second_item.getId());
+						disciplinaDAO.getInstance().updateMedias(second_item.getId());
+					}
+				}
+			}
+		}
+	}
+	
+	public void editarAvaliacao(Avaliacao avA, Avaliacao avB, Semestre semestre, Disciplina disciplina) {
+		avB.setId(avA.getId());
+		avB.setIdDisciplina(avA.getIdDisciplina());
+		for(Semestre item : semestres) {
+			if (item.equals(semestre)) {
+				for(Disciplina second_item : item.disciplinas) {
+					if(second_item.equals(disciplina)) {
+						for(Avaliacao third_item : second_item.avaliacoes) {
+							if(third_item.equals(avA)) {
+								avaliacaoDAO.getInstance().update(avB);
+								second_item.editarAvaliacao(avA, avB);
+							}
+						}
 					}
 				}
 			}
@@ -272,7 +292,7 @@ public class Sistema {
 	public void gerarPDF(String identificacao) {
 		String nomePDF = "C:\\Users\\pires\\Documents\\GitHub\\poo\\App_Notas\\relatorios\\Semestre" + identificacao+".pdf";
 		Document documentoPDF = new Document(); //documento vazio
-		
+		geradorNotasESituacao(identificacao);
 		try {
 			PdfWriter.getInstance(documentoPDF, new FileOutputStream(nomePDF));
 			documentoPDF.open();//abre o documento
@@ -296,13 +316,19 @@ public class Sistema {
 						PdfPTable situacoes = new PdfPTable(2);
 						PdfPCell cel1 = new PdfPCell(new Paragraph("Média: "+second_item.getMedia()));
 						second_item.notaNecessaria();
-						PdfPCell cel2 = new PdfPCell(new Paragraph("Situação: "+ second_item.isSituacao()+"    Necessário: "+second_item.getNota_aprovacao()));
+						PdfPCell cel2 = null;
+						if(second_item.isSituacao() == false) {
+							cel2 = new PdfPCell(new Paragraph("Situação: Não Aprovado     Necessário: "+second_item.getNota_aprovacao()));
+						}else if(second_item.isSituacao() == true) {
+							cel2 = new PdfPCell(new Paragraph("Situação: Aprovado"));
+						}
 						situacoes.addCell(cel1);
 						situacoes.addCell(cel2);
 						documentoPDF.add(situacoes);
 					}
 				}
 			}
+			Desktop.getDesktop().open(new File(nomePDF));
 			documentoPDF.close();
 		}catch(Exception e) {
 			
