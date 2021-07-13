@@ -24,6 +24,7 @@ public class Matriz<T> {
 			return true;
 		}else {
 			return false;
+			
 		}
 	}
 	public T get(int i, int j) {
