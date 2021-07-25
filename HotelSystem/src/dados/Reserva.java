@@ -6,6 +6,7 @@ public class Reserva {
 	private int codestadia;
 	private String diaentrada;
 	private String diareserva;
+	private int codcliente;
 	public int getCodreserva() {
 		return codreserva;
 	}
@@ -35,6 +36,12 @@ public class Reserva {
 	}
 	public void setDiareserva(String diareserva) {
 		this.diareserva = diareserva;
+	}
+	public int getCodcliente() {
+		return codcliente;
+	}
+	public void setCodcliente(int codcliente) {
+		this.codcliente = codcliente;
 	}
 	
 	
