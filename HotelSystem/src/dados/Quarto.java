@@ -32,6 +32,12 @@ public class Quarto {
 	public void setAndar(int andar) {
 		this.andar = andar;
 	}
+	@Override
+	public String toString() {
+		
+		
+		return "Hotel=" + codHotel + ", nroa=" + nroa + ", andar=" + andar ;
+	}
 	
 	
 	

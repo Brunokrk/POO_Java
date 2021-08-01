@@ -26,7 +26,7 @@ public class Empregado {
 	}
 	@Override
 	public String toString() {
-		return "Empregado [nRegistro=" + nRegistro + ", nome=" + nome + "]";
+		return nRegistro + ": " + nome;
 	}
 	  
 }

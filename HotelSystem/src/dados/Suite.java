@@ -13,5 +13,9 @@ public class Suite extends Quarto{
 	public void setNcamas(int ncamas) {
 		this.ncamas = ncamas;
 	}
+	@Override
+	public String toString() {
+		return "Suite, hotel: "+ super.getCodHotel()+ " Nroa: "+ super.getNroa() +" Andar: "+super.getAndar() ;
+	}
 
 }

@@ -6,7 +6,7 @@ public class tipoServico {
 	private Double preco;
 	
 	public tipoServico(int codtipo, String tipo, Double preco) {
-		this.codTipo = codTipo;
+		this.codTipo = codtipo;
 		this.tipo = tipo;
 		this.preco = preco;
 	}
@@ -32,6 +32,11 @@ public class tipoServico {
 	}
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+
+	@Override
+	public String toString() {
+		return "codTipo:" + codTipo + "\n Tipo:" + tipo + ", Preco=" + preco ;
 	}
 	
 	

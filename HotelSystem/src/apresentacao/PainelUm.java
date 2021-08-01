@@ -314,7 +314,7 @@ public class PainelUm extends JPanel{
 		for(tipoServico t : sistema.getServicos()) {
 			boxTipos.addItem(t);
 		}
-		boxTipos.setBounds(925, 55, 200, 20);
+		boxTipos.setBounds(925, 55, 250, 20);
 		boxTipos.setBackground(Color.LIGHT_GRAY);
 		add(boxTipos);
 		

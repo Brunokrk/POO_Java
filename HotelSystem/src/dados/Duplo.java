@@ -8,5 +8,9 @@ public class Duplo extends Quarto{
 		super(_codHotel, _nroa, _andar);
 		this.ncamas = _ncamas;
 	}
+	@Override
+	public String toString() {
+		return "Duplo, hotel: "+ super.getCodHotel()+ " Nroa: "+ super.getNroa() +" Andar: "+super.getAndar() ;
+	}
 
 }
