@@ -6,8 +6,8 @@ public class Cliente {
 	private String estado;
 	private String rua;
 	private String bairro;
-	private int numero;
 	private int telefone;
+	private String nome;
 	public int getnRegistro() {
 		return nRegistro;
 	}
@@ -38,17 +38,18 @@ public class Cliente {
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	public int getNumero() {
-		return numero;
-	}
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
+
 	public int getTelefone() {
 		return telefone;
 	}
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 	

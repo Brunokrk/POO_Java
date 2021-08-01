@@ -115,8 +115,6 @@ public class PainelAvaliacoes extends JPanel{
 		});
 		cadastro.add(btnCdstAva);
 		
-		
-		
 		//Painel de atualização
 		JPanel atualizacao = new JPanel();
 		atualizacao.setBounds(575, 5, 300, 225);

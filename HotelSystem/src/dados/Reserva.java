@@ -7,6 +7,20 @@ public class Reserva {
 	private String diaentrada;
 	private String diareserva;
 	private int codcliente;
+	
+	public Reserva() {
+		
+	}
+	
+	public Reserva(int codReserva, int nroa, int codestadia, String diaentrada, String diareserva, int codcliente) {
+		this.codreserva = codReserva;
+		this.nroa = nroa;
+		this.codestadia = codestadia;
+		this.diaentrada = diaentrada;
+		this.diareserva = diareserva;
+		this.codcliente = codcliente;
+	}
+	
 	public int getCodreserva() {
 		return codreserva;
 	}
@@ -42,6 +56,11 @@ public class Reserva {
 	}
 	public void setCodcliente(int codcliente) {
 		this.codcliente = codcliente;
+	}
+
+	@Override
+	public String toString() {
+		return " " + codreserva + ": Quarto " + nroa;
 	}
 	
 	

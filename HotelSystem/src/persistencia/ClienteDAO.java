@@ -51,14 +51,14 @@ public class ClienteDAO {
 			insert.setString(3, cliente.getEstado());
 			insert.setString(4, cliente.getRua());
 			insert.setString(5, cliente.getBairro());
-			insert.setInt(6, cliente.getNumero());
-			insert.setInt(7, cliente.getTelefone());
+			insert.setInt(6, cliente.getTelefone());
+			insert.setString(7, cliente.getNome());
 			insert.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void
+	
 	
 }

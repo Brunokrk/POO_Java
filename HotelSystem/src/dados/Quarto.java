@@ -6,6 +6,8 @@ public class Quarto {
 	private int andar;
 	
 	//construtor 
+	public Quarto() {
+	}
 	public Quarto(int _codHotel, int _nroa, int _andar) {
 		this.codHotel = _codHotel;
 		this.nroa = _nroa;
