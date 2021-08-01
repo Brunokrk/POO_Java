@@ -4,6 +4,17 @@ public class tipoServico {
 	private int codTipo;
 	private String tipo;
 	private Double preco;
+	
+	public tipoServico(int codtipo, String tipo, Double preco) {
+		this.codTipo = codTipo;
+		this.tipo = tipo;
+		this.preco = preco;
+	}
+	
+	public tipoServico() {
+		
+	}
+	
 	public int getCodTipo() {
 		return codTipo;
 	}

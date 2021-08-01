@@ -22,6 +22,7 @@ public class PainelUm extends JPanel{
 		JComboBox<Reserva> boxReservas = new JComboBox<Reserva>();
 		JComboBox<Empregado> boxEmpregados = new JComboBox<Empregado>();
 		JComboBox<Quarto> boxQuartos = new JComboBox<Quarto>();
+		JComboBox<tipoServico> boxTipos = new JComboBox<tipoServico>();
 		
 		JTextField nomeField = new JTextField();
 		JTextField regField = new JTextField();
@@ -40,7 +41,9 @@ public class PainelUm extends JPanel{
 		JTextField codEstadiaField = new JTextField();
 		JTextField diaReservaField = new JTextField();
 		JTextField diaEntradaField = new JTextField();
-
+		JTextField codEstadiaEx = new JTextField();
+		JTextField diaEx = new JTextField();
+		JTextField horaEx = new JTextField();
 		
 		JLabel tituloCli = new JLabel ("Cadastro de Cliente");
 		JLabel infoNomeField = new JLabel("Nome: ");
@@ -63,12 +66,18 @@ public class PainelUm extends JPanel{
 		JLabel infoDiaReserva = new JLabel("Dia da reserva");
 		JLabel infoDiaEntrada = new JLabel("Dia do pagamento");
 		JLabel infoBoxQuartos = new JLabel("Selecione o quarto");
+		JLabel tituloExtra = new JLabel("Adicionando um Extra");
+		JLabel tituloBoxTipo = new JLabel("Selecione o serviço");
+		JLabel infoCodEstadiaEx = new JLabel("Código da estadia");
+		JLabel infodiaEx = new JLabel("Dia do serviço");
+		JLabel infohoraEx = new JLabel("Horário do serviço");
 		
 		
 		JButton btnCdstCli =  new JButton("Cadastrar");
 		JButton btnCdstLim =  new JButton("Cadastrar");
 		JButton btnCdstEst =  new JButton("Cadastrar");
 		JButton btnCdstRes =  new JButton("Cadastrar");
+		JButton btnCdstEx = new JButton("Cadastrar");
 		
 		setLayout(null);
 		
@@ -295,7 +304,58 @@ public class PainelUm extends JPanel{
 		add(btnCdstRes);
 		
 		//---------------------------EXTRA------------------------------
+		tituloExtra.setBounds(925, 5, 200, 15);
+		add(tituloExtra);
+		
+		tituloBoxTipo.setBounds(925, 30, 200, 15);
+		add(tituloBoxTipo);
+		
 		//criar BOX DE TIPOS
+		for(tipoServico t : sistema.getServicos()) {
+			boxTipos.addItem(t);
+		}
+		boxTipos.setBounds(925, 55, 200, 20);
+		boxTipos.setBackground(Color.LIGHT_GRAY);
+		add(boxTipos);
+		
+		infoCodEstadiaEx.setBounds(925, 80, 200, 15);
+		add(infoCodEstadiaEx);
+		
+		codEstadiaEx.setBounds(925, 105, 200, 20);
+		codEstadiaEx.setBackground(Color.LIGHT_GRAY);
+		add(codEstadiaEx);
+		
+		infodiaEx.setBounds(925, 130, 200, 15);
+		add(infodiaEx);
+		
+		diaEx.setBounds(925, 155, 200, 20);
+		diaEx.setBackground(Color.LIGHT_GRAY);
+		add(diaEx);
+		
+		infohoraEx.setBounds(925, 180, 200, 15);
+		add(infohoraEx);
+		
+		horaEx.setBounds(925, 205, 200, 20);
+		horaEx.setBackground(Color.LIGHT_GRAY);
+		add(horaEx);
+		
+		btnCdstEx.setBounds(925, 230, 200, 40);
+		btnCdstEx.setBackground(Color.white);
+		btnCdstEx.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Extra extra = new Extra();
+				tipoServico tipo = new tipoServico();
+				
+				tipo = (tipoServico)boxTipos.getSelectedItem();
+				extra.setCodEstadia(Integer.parseInt(codEstadiaEx.getText()));
+				extra.setCodTipo(tipo.getCodTipo());
+				extra.setDia(diaEx.getText());
+				extra.setHora(horaEx.getText());
+				sistema.cadastrarExtra(extra);
+			}
+		});
+		add(btnCdstEx);
 		
 		
 	}

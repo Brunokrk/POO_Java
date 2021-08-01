@@ -6,9 +6,11 @@ import dados.*;
 import persistencia.ClienteDAO;
 import persistencia.EmpregadoDAO;
 import persistencia.EstadiaDAO;
+import persistencia.ExtraDAO;
 import persistencia.LimpezaDAO;
 import persistencia.QuartoDAO;
 import persistencia.ReservaDAO;
+import persistencia.TipoServicoDAO;
 
 
 public class Sistema {
@@ -19,6 +21,8 @@ public class Sistema {
 	private LimpezaDAO limpezaDAO;
 	private EstadiaDAO estadiaDAO;
 	private QuartoDAO quartoDAO;
+	private TipoServicoDAO servicoDAO;
+	private ExtraDAO extraDAO;
 	
 	public static Sistema getInstance() {
 		if (instance == null) {
@@ -43,6 +47,10 @@ public class Sistema {
 		reservaDAO.getInstance().insert(reserva);
 	}
 	
+	public void cadastrarExtra(Extra extra) {
+		extraDAO.getInstance().insert(extra);
+	}
+	
 	public List<Empregado> getEmpregados() {	
 		return empregadoDAO.getInstance().selectAll();
 	}
@@ -65,6 +73,10 @@ public class Sistema {
 		quartos.addAll(suite);
 		
 		return quartos;
+	}
+	
+	public List<tipoServico> getServicos(){
+		return servicoDAO.getInstance().selectAll();
 	}
 	
 	

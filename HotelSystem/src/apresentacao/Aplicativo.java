@@ -23,7 +23,7 @@ public class Aplicativo extends JFrame {
 	public Aplicativo() {
 		setTitle("Sistema Hotel Alfa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(50, 50, 1000, 900);
+		setBounds(50, 50, 1200, 900);
 		setResizable(false);
 		this.add(new AbasApp());
 		
