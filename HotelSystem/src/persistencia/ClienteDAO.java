@@ -1,6 +1,9 @@
 package persistencia;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import dados.*;
 
 
@@ -10,9 +13,9 @@ public class ClienteDAO {
 	
 	private PreparedStatement selectNewId;
 	private PreparedStatement insert;
-	private PreparedStatement delete;
-	private PreparedStatement deleteAll;
-	private PreparedStatement select;
+	//private PreparedStatement delete;
+	private PreparedStatement selectAll;
+	//private PreparedStatement select;
 	
 	public static ClienteDAO getInstance() {
 		if(instance == null) {
@@ -26,6 +29,7 @@ public class ClienteDAO {
 		try {
 			selectNewId = conexao.prepareStatement("select nextval('seq_nregistro_cli')");
 			insert = conexao.prepareStatement("insert into cliente values(?,?,?,?,?,?,?)");
+			selectAll = conexao.prepareStatement("select * from cliente");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -59,6 +63,27 @@ public class ClienteDAO {
 		}
 	}
 	
+	public List<Cliente> selectAll(){
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		
+		try {
+			ResultSet rs = selectAll.executeQuery();
+			while(rs.next()) {
+				int nRegistro = rs.getInt(1);
+				String cidade = rs.getString(2);
+				String estado = rs.getString(3);
+				String rua = rs.getString(4);
+				String bairro = rs.getString(5);
+				int telefone = rs.getInt(6);
+				String nome = rs.getString(7);
+				clientes.add(new Cliente(nRegistro, cidade, estado, rua, bairro, telefone, nome));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return clientes;
+	}
 	
 	
 }

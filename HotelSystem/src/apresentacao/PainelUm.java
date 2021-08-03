@@ -1,13 +1,17 @@
 package apresentacao;
 
 import java.awt.Color;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import dados.*;
@@ -19,7 +23,7 @@ public class PainelUm extends JPanel{
 	public PainelUm() {
 		Sistema sistema = Sistema.getInstance();
 		
-		JComboBox<Reserva> boxReservas = new JComboBox<Reserva>();
+		JComboBox<Estadia> boxEstadias = new JComboBox<Estadia>();
 		JComboBox<Empregado> boxEmpregados = new JComboBox<Empregado>();
 		JComboBox<Quarto> boxQuartos = new JComboBox<Quarto>();
 		JComboBox<tipoServico> boxTipos = new JComboBox<tipoServico>();
@@ -78,6 +82,19 @@ public class PainelUm extends JPanel{
 		JButton btnCdstEst =  new JButton("Cadastrar");
 		JButton btnCdstRes =  new JButton("Cadastrar");
 		JButton btnCdstEx = new JButton("Cadastrar");
+		
+		JScrollPane scrollClientes = new JScrollPane();
+		JTable tabClientes;
+		tabelaClientes itensTabCli = new tabelaClientes();
+		
+		JScrollPane scrollEmpregados = new JScrollPane();
+		JTable tabEmpregados;
+		TabelaEmpregados itensTavEmp = new TabelaEmpregados();
+		
+		JScrollPane scrollReservas = new JScrollPane();
+		JTable tabReservas;
+		TabelaReservas itensTavRes = new TabelaReservas();
+		
 		
 		setLayout(null);
 		
@@ -156,6 +173,8 @@ public class PainelUm extends JPanel{
 				cliente.setBairro(bairroField.getText());
 				cliente.setRua(ruaField.getText());
 				sistema.cadastrarCliente(cliente);
+				
+				itensTabCli.adicionaCliente();
 			}
 			
 		});
@@ -185,12 +204,12 @@ public class PainelUm extends JPanel{
 		//RESERVA
 		infoReservaFiedl.setBounds(250, 130, 200, 15);
 		add(infoReservaFiedl);
-		for(Reserva r : sistema.getReservas()) {
-			boxReservas.addItem(r);
+		for(Estadia e : sistema.getEstadias()) {
+			boxEstadias.addItem(e);
 		}
-		boxReservas.setBounds(250, 155, 200, 20);
-		boxReservas.setBackground(Color.LIGHT_GRAY);
-		add(boxReservas);
+		boxEstadias.setBounds(250, 155, 200, 20);
+		boxEstadias.setBackground(Color.LIGHT_GRAY);
+		add(boxEstadias);
 	
 		btnCdstLim.setBounds(250, 180, 200, 40);
 		btnCdstLim.setBackground(Color.white);
@@ -199,9 +218,9 @@ public class PainelUm extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				//Funcionalidade do botão cadastrar Limpeza
 				Limpeza limpeza = new Limpeza();
-				Reserva reserva = (Reserva) boxReservas.getSelectedItem();
+				Estadia estadia = (Estadia) boxEstadias.getSelectedItem();
 				Empregado empregado = (Empregado) boxEmpregados.getSelectedItem();
-				limpeza.setCodReseva(reserva.getCodreserva());
+				limpeza.setcodEstadia(estadia.getCodestadia());
 				limpeza.setnRegEmp(empregado.getnRegistro());
 				limpeza.setTempo(tempoField.getText()); //formato correto
 				sistema.cadastrarLimpeza(limpeza);
@@ -226,7 +245,7 @@ public class PainelUm extends JPanel{
 		checkOutField.setBounds(475, 105, 200, 20);
 		checkOutField.setBackground(Color.LIGHT_GRAY);
 		add(checkOutField);
-		
+		/*
 		btnCdstEst.setBounds(475, 130, 200, 40);
 		btnCdstEst.setBackground(Color.white);
 		btnCdstEst.addActionListener(new ActionListener() {
@@ -241,60 +260,69 @@ public class PainelUm extends JPanel{
 			
 		});
 		add(btnCdstEst);		
-		
+		*/
 		//---------------------------RESERVA------------------------------
-		tituloCdstReserva.setBounds(700, 5, 200, 15);
+		tituloCdstReserva.setBounds(475, 230, 200, 15);
 		add(tituloCdstReserva);
 		
-		infoCodCliente.setBounds(700, 30, 200, 15);
+		infoCodCliente.setBounds(475, 130, 200, 15);
 		add(infoCodCliente);
 		
-		codClienteField.setBounds(700, 55, 200, 20);
+		codClienteField.setBounds(475, 155, 200, 20);
 		codClienteField.setBackground(Color.LIGHT_GRAY);
 		add(codClienteField);
 		
-		infoCodEstadia.setBounds(700, 80, 200, 15);
-		add(infoCodEstadia);
-		
-		codEstadiaField.setBounds(700, 105, 200, 20);
-		codEstadiaField.setBackground(Color.LIGHT_GRAY);
-		add(codEstadiaField);
-		
-		infoDiaReserva.setBounds(700, 130, 200, 15);
-		add(infoDiaReserva);
-		
-		diaReservaField.setBounds(700, 155, 200, 20);
-		diaReservaField.setBackground(Color.LIGHT_GRAY);
-		add(diaReservaField);
-		
-		infoDiaEntrada.setBounds(700, 180, 200, 15);
-		add(infoDiaEntrada);
-		
-		diaEntradaField.setBounds(700, 205, 200, 20);
-		diaEntradaField.setBackground(Color.LIGHT_GRAY);
-		add(diaEntradaField);
-		
-		infoBoxQuartos.setBounds(700, 230, 200, 20);
+		infoBoxQuartos.setBounds(475, 180, 200, 20);
 		add(infoBoxQuartos);
 		
 		for(Quarto q : sistema.getQuartos()) {
 			boxQuartos.addItem(q);
 		}
-		boxQuartos.setBounds(700, 255, 200, 20);
+		boxQuartos.setBounds(475, 205, 200, 20);
 		boxQuartos.setBackground(Color.LIGHT_GRAY);
 		add(boxQuartos);
+		/*
+		infoCodEstadia.setBounds(475, 205, 200, 15);
+		add(infoCodEstadia);
 		
-		btnCdstRes.setBounds(700, 280, 200, 40);
+		codEstadiaField.setBounds(475, 230, 200, 20);
+		codEstadiaField.setBackground(Color.LIGHT_GRAY);
+		add(codEstadiaField);
+		*/
+		infoDiaReserva.setBounds(475, 255, 200, 15);
+		add(infoDiaReserva);
+		
+		diaReservaField.setBounds(475, 280, 200, 20);
+		diaReservaField.setBackground(Color.LIGHT_GRAY);
+		add(diaReservaField);
+		
+		infoDiaEntrada.setBounds(475, 305, 200, 15);
+		add(infoDiaEntrada);
+		
+		diaEntradaField.setBounds(475, 330, 200, 20);
+		diaEntradaField.setBackground(Color.LIGHT_GRAY);
+		add(diaEntradaField);
+		
+		
+		btnCdstRes.setBounds(475, 355, 200, 40);
 		btnCdstRes.setBackground(Color.white);
 		btnCdstRes.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Reserva reserva = new Reserva();
 				Quarto quarto = new Quarto();
+				Estadia estadia = new Estadia();
+				estadia.setCheckin(checkInField.getText());
+				estadia.setCheckout(checkOutField.getText());
+				estadia.setCodcliente(Integer.parseInt(codClienteField.getText()));
+				estadia.setNroa(quarto.getNroa());
+				sistema.cadastrarEstadia(estadia);
+				
+				List<Estadia> estadias = sistema.getEstadias();
 				
 				quarto = (Quarto)boxQuartos.getSelectedItem();
 				reserva.setCodcliente(Integer.parseInt(codClienteField.getText()));
-				reserva.setCodestadia(Integer.parseInt(codEstadiaField.getText()));
+				reserva.setCodestadia(estadias.get(estadias.size()-1).getCodestadia());
 				reserva.setDiaentrada(diaEntradaField.getText());
 				reserva.setDiareserva(diaReservaField.getText());
 				reserva.setNroa(quarto.getNroa());
@@ -304,42 +332,42 @@ public class PainelUm extends JPanel{
 		add(btnCdstRes);
 		
 		//---------------------------EXTRA------------------------------
-		tituloExtra.setBounds(925, 5, 200, 15);
+		tituloExtra.setBounds(700, 5, 200, 15);
 		add(tituloExtra);
 		
-		tituloBoxTipo.setBounds(925, 30, 200, 15);
+		tituloBoxTipo.setBounds(700, 30, 200, 15);
 		add(tituloBoxTipo);
 		
 		//criar BOX DE TIPOS
 		for(tipoServico t : sistema.getServicos()) {
 			boxTipos.addItem(t);
 		}
-		boxTipos.setBounds(925, 55, 250, 20);
+		boxTipos.setBounds(700, 55, 250, 20);
 		boxTipos.setBackground(Color.LIGHT_GRAY);
 		add(boxTipos);
 		
-		infoCodEstadiaEx.setBounds(925, 80, 200, 15);
+		infoCodEstadiaEx.setBounds(700, 80, 200, 15);
 		add(infoCodEstadiaEx);
 		
-		codEstadiaEx.setBounds(925, 105, 200, 20);
+		codEstadiaEx.setBounds(700, 105, 200, 20);
 		codEstadiaEx.setBackground(Color.LIGHT_GRAY);
 		add(codEstadiaEx);
 		
-		infodiaEx.setBounds(925, 130, 200, 15);
+		infodiaEx.setBounds(700, 130, 200, 15);
 		add(infodiaEx);
 		
-		diaEx.setBounds(925, 155, 200, 20);
+		diaEx.setBounds(700, 155, 200, 20);
 		diaEx.setBackground(Color.LIGHT_GRAY);
 		add(diaEx);
 		
-		infohoraEx.setBounds(925, 180, 200, 15);
+		infohoraEx.setBounds(700, 180, 200, 15);
 		add(infohoraEx);
 		
-		horaEx.setBounds(925, 205, 200, 20);
+		horaEx.setBounds(700, 205, 200, 20);
 		horaEx.setBackground(Color.LIGHT_GRAY);
 		add(horaEx);
 		
-		btnCdstEx.setBounds(925, 230, 200, 40);
+		btnCdstEx.setBounds(700, 230, 200, 40);
 		btnCdstEx.setBackground(Color.white);
 		btnCdstEx.addActionListener(new ActionListener() {
 			@Override
@@ -358,7 +386,35 @@ public class PainelUm extends JPanel{
 		add(btnCdstEx);
 		
 		
+		//---------------------------View Clientes------------------------------
+		
+		JLabel tituloView = new JLabel("Algumas Visualizações");
+		tituloView.setBounds(25, 430, 200, 30);
+		add(tituloView);
+		
+		tabClientes = new JTable(itensTabCli);
+		scrollClientes.setViewportView(tabClientes);
+		scrollClientes.setBounds(25, 475, 250, 350);
+		add(scrollClientes);
+		
+		//---------------------------View Empregados------------------------------
+		tabEmpregados = new JTable(itensTavEmp);
+		scrollEmpregados.setViewportView(tabEmpregados);
+		scrollEmpregados.setBounds(300, 475, 250, 150);
+		add(scrollEmpregados);
+		
+		//---------------------------View Reservas------------------------------
+		
+		tabReservas = new JTable(itensTavRes);
+		scrollReservas.setViewportView(tabReservas);
+		scrollReservas.setBounds(300, 650, 250, 175);
+		add(scrollReservas);
+		
+		//---------------------------View Estadias------------------------------
+		
+		
 	}
+	
 	
 	
 }

@@ -79,10 +79,14 @@ public class Sistema {
 		return servicoDAO.getInstance().selectAll();
 	}
 	
+	public List<Estadia> getEstadias(){
+		return estadiaDAO.getInstance().selectAll();
+	}
 	
 	
-	
-	
+	public List<Cliente> getClientes(){
+		return clienteDAO.getInstance().selectAll();
+	}
 	
 	
 	

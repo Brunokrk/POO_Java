@@ -3,7 +3,7 @@ package dados;
 public class Limpeza {
 	private int codLimpeza;
 	private String tempo;
-	private int codReseva;
+	private int codEstadia;
 	private int nRegEmp;
 	public int getCodLimpeza() {
 		return codLimpeza;
@@ -17,11 +17,11 @@ public class Limpeza {
 	public void setTempo(String tempo) {
 		this.tempo = tempo;
 	}
-	public int getCodReseva() {
-		return codReseva;
+	public int getcodEstadia() {
+		return codEstadia;
 	}
-	public void setCodReseva(int codReseva) {
-		this.codReseva = codReseva;
+	public void setcodEstadia(int codEstadia) {
+		this.codEstadia = codEstadia;
 	}
 	public int getnRegEmp() {
 		return nRegEmp;

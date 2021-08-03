@@ -10,6 +10,9 @@ public class EstadiaDAO {
 
 	private PreparedStatement insert;
 	private PreparedStatement selectNewId;
+	private PreparedStatement selectAll;
+	
+	
 	public static EstadiaDAO getInstance() {
 		if(instance == null) {
 			instance = new EstadiaDAO();
@@ -22,10 +25,31 @@ public class EstadiaDAO {
 
 		try {
 			selectNewId = conexao.prepareStatement("select nextval('seq_codestadia')");
-			insert = conexao.prepareStatement("insert into estadia values(?,?,?,?)");
+			insert = conexao.prepareStatement("insert into estadia values(?,?,?,?,?,?)");
+			selectAll = conexao.prepareStatement("select * from estadia");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<Estadia> selectAll(){
+		List<Estadia> estadias = new ArrayList<Estadia>();
+		
+		try {
+			ResultSet rs = selectAll.executeQuery();
+			while(rs.next()) {
+				int codEstadia = rs.getInt(1);
+				String checkin = rs.getString(2);
+				String checkout = rs.getString(3);
+				Double valorExtra = rs.getDouble(4);
+				int codcliente = rs.getInt(5);
+				int nroa = rs.getInt(6);
+				estadias.add(new Estadia(codEstadia, checkin, checkout, valorExtra, codcliente, nroa));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return estadias;
 	}
 	
 	public int selectNewId() {
@@ -48,6 +72,8 @@ public class EstadiaDAO {
 			insert.setString(2, estadia.getCheckin());
 			insert.setString(3, estadia.getCheckout());
 			insert.setDouble(4, estadia.getValorextra());
+			insert.setInt(5,  estadia.getCodcliente());
+			insert.setInt(6, estadia.getNroa());
 			insert.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

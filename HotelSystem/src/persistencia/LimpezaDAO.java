@@ -48,8 +48,8 @@ public class LimpezaDAO {
 		try {
 			insert.setInt(1, limpeza.getCodLimpeza());
 			insert.setString(2, limpeza.getTempo());
-			insert.setInt(3, limpeza.getCodReseva());
 			insert.setInt(4, limpeza.getnRegEmp());
+			insert.setInt(3, limpeza.getcodEstadia());
 			insert.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

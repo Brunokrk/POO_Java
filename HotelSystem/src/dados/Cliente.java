@@ -8,6 +8,22 @@ public class Cliente {
 	private String bairro;
 	private int telefone;
 	private String nome;
+	
+	public Cliente() {
+		
+	}
+	
+	public Cliente(int nRegistro, String cidade, String estado, String rua, String bairro, int telefone, String nome) {
+		super();
+		this.nRegistro = nRegistro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.rua = rua;
+		this.bairro = bairro;
+		this.telefone = telefone;
+		this.nome = nome;
+	}
+
 	public int getnRegistro() {
 		return nRegistro;
 	}
@@ -50,6 +66,11 @@ public class Cliente {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	@Override
+	public String toString() {
+		return  nRegistro + ": " + nome + ", tel: " +telefone;
 	}
 	
 	

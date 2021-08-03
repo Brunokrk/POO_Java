@@ -4,9 +4,9 @@ import javax.swing.JPanel;
 
 public class AbasApp extends JTabbedPane{
 	public AbasApp() {
-		this.addTab("Clientes", new PainelUm());
+		this.addTab("Cadastros", new PainelUm());
 		
-		//this.addTab("Disciplinas", new PainelDisciplinas());
-		//this.addTab("Avaliações", new PainelAvaliacoes());
+		this.addTab("Visualizações", new PainelDois());
+		
 	}
 }
