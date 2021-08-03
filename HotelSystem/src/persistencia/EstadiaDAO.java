@@ -10,6 +10,7 @@ public class EstadiaDAO {
 
 	private PreparedStatement insert;
 	private PreparedStatement selectNewId;
+	private PreparedStatement selectById;
 	private PreparedStatement selectAll;
 	
 	
@@ -27,6 +28,7 @@ public class EstadiaDAO {
 			selectNewId = conexao.prepareStatement("select nextval('seq_codestadia')");
 			insert = conexao.prepareStatement("insert into estadia values(?,?,?,?,?,?)");
 			selectAll = conexao.prepareStatement("select * from estadia");
+			selectById= conexao.prepareStatement("select * from estadia where codestadia = ?");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -50,6 +52,25 @@ public class EstadiaDAO {
 			e.printStackTrace();
 		}
 		return estadias;
+	}
+	
+	public Estadia selectById(int codestadia) {
+		try {
+			selectById.setInt(1, codestadia);
+			ResultSet rs = selectById.executeQuery();
+			if(rs.next()) {
+				int codEstadia = rs.getInt(1);
+				String checkin = rs.getString(2);
+				String checkout = rs.getString(3);
+				Double valorextra = rs.getDouble(4);
+				int codCliente = rs.getInt(5);
+				int nroa = rs.getInt(6);
+				return new Estadia(codEstadia, checkin, checkout, valorextra, codCliente, nroa);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public int selectNewId() {

@@ -58,6 +58,12 @@ public class Estadia {
 	public void setValorextra(Double valorextra) {
 		this.valorextra = valorextra;
 	}
+	@Override
+	public String toString() {
+		return codestadia + "- Quarto: " + nroa + ", Valor Adicional " + valorextra;
+	}
+	
+	
 	
 	
 }

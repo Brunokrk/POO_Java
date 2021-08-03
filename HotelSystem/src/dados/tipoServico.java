@@ -36,7 +36,7 @@ public class tipoServico {
 
 	@Override
 	public String toString() {
-		return "codTipo:" + codTipo + "\n Tipo:" + tipo + ", Preco=" + preco ;
+		return codTipo + ":" + tipo;
 	}
 	
 	

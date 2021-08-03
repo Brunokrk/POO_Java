@@ -12,6 +12,7 @@ public class ExtraDAO {
 	
 	private PreparedStatement insert;
 	private PreparedStatement selectNewId;
+	private PreparedStatement calculaExtra;
 	
 	public static ExtraDAO getInstance() {
 		if(instance == null) {
@@ -25,6 +26,16 @@ public class ExtraDAO {
 		try {
 			selectNewId = conexao.prepareStatement("select nextval('seq_codextra')");
 			insert = conexao.prepareStatement("insert into extra values(?,?,?,?,?)");
+			calculaExtra = conexao.prepareStatement("select calculaextra(?) ");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void calculaExtra(int cod) {
+		try {
+			calculaExtra.setInt(1, cod);
+			calculaExtra.executeQuery();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

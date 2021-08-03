@@ -24,6 +24,7 @@ public class PainelUm extends JPanel{
 		Sistema sistema = Sistema.getInstance();
 		
 		JComboBox<Estadia> boxEstadias = new JComboBox<Estadia>();
+		JComboBox<Estadia> boxEstadiasB = new JComboBox<Estadia>();
 		JComboBox<Empregado> boxEmpregados = new JComboBox<Empregado>();
 		JComboBox<Quarto> boxQuartos = new JComboBox<Quarto>();
 		JComboBox<tipoServico> boxTipos = new JComboBox<tipoServico>();
@@ -60,14 +61,14 @@ public class PainelUm extends JPanel{
 		JLabel tituloLimpeza =  new JLabel ("Cadastro de Limpeza");
 		JLabel infoRegEmpField = new JLabel("Selecione o Empregado");
 		JLabel infoTempoField = new JLabel("Informe o tempo do serviço");
-		JLabel infoReservaFiedl = new JLabel("Selecione a Reserva ");
+		JLabel infoReservaFiedl = new JLabel("Selecione a Estadia ");
 		JLabel tituloCheckIn = new JLabel("Cadastro de Estadia");
 		JLabel infoCheckInField = new JLabel("Informe data do check-in");
 		JLabel infoCheckOutField = new JLabel("Informe data do check-out");
 		JLabel tituloCdstReserva = new JLabel("Cadastro de Reserva");
 		JLabel infoCodCliente = new JLabel("Código do cliente");
 		JLabel infoCodEstadia = new JLabel("Código da estadia");
-		JLabel infoDiaReserva = new JLabel("Dia da reserva");
+		JLabel infoDiaReserva = new JLabel("Dia que Reserva foi feita");
 		JLabel infoDiaEntrada = new JLabel("Dia do pagamento");
 		JLabel infoBoxQuartos = new JLabel("Selecione o quarto");
 		JLabel tituloExtra = new JLabel("Adicionando um Extra");
@@ -82,6 +83,8 @@ public class PainelUm extends JPanel{
 		JButton btnCdstEst =  new JButton("Cadastrar");
 		JButton btnCdstRes =  new JButton("Cadastrar");
 		JButton btnCdstEx = new JButton("Cadastrar");
+		JButton btnCalculaEx = new JButton("Calcular");
+		
 		
 		JScrollPane scrollClientes = new JScrollPane();
 		JTable tabClientes;
@@ -94,6 +97,10 @@ public class PainelUm extends JPanel{
 		JScrollPane scrollReservas = new JScrollPane();
 		JTable tabReservas;
 		TabelaReservas itensTavRes = new TabelaReservas();
+		
+		JScrollPane scrollEstadias = new JScrollPane();
+		JTable tabEstadias;
+		TabelaEstadias itensTabEst = new TabelaEstadias();
 		
 		
 		setLayout(null);
@@ -201,7 +208,7 @@ public class PainelUm extends JPanel{
 		tempoField.setBackground(Color.LIGHT_GRAY);
 		add(tempoField);
 		
-		//RESERVA
+		//Estadia
 		infoReservaFiedl.setBounds(250, 130, 200, 15);
 		add(infoReservaFiedl);
 		for(Estadia e : sistema.getEstadias()) {
@@ -293,6 +300,7 @@ public class PainelUm extends JPanel{
 		add(infoDiaReserva);
 		
 		diaReservaField.setBounds(475, 280, 200, 20);
+		diaReservaField.setText("00-00-0000");
 		diaReservaField.setBackground(Color.LIGHT_GRAY);
 		add(diaReservaField);
 		
@@ -300,6 +308,7 @@ public class PainelUm extends JPanel{
 		add(infoDiaEntrada);
 		
 		diaEntradaField.setBounds(475, 330, 200, 20);
+		diaEntradaField.setText("00-00-0000");
 		diaEntradaField.setBackground(Color.LIGHT_GRAY);
 		add(diaEntradaField);
 		
@@ -312,21 +321,31 @@ public class PainelUm extends JPanel{
 				Reserva reserva = new Reserva();
 				Quarto quarto = new Quarto();
 				Estadia estadia = new Estadia();
+				quarto = (Quarto)boxQuartos.getSelectedItem();
+				
 				estadia.setCheckin(checkInField.getText());
 				estadia.setCheckout(checkOutField.getText());
 				estadia.setCodcliente(Integer.parseInt(codClienteField.getText()));
 				estadia.setNroa(quarto.getNroa());
 				sistema.cadastrarEstadia(estadia);
+				itensTabEst.adicionaEstadia();
+				boxEstadiasB.addItem(estadia);
 				
 				List<Estadia> estadias = sistema.getEstadias();
 				
-				quarto = (Quarto)boxQuartos.getSelectedItem();
+				
+				
 				reserva.setCodcliente(Integer.parseInt(codClienteField.getText()));
 				reserva.setCodestadia(estadias.get(estadias.size()-1).getCodestadia());
 				reserva.setDiaentrada(diaEntradaField.getText());
 				reserva.setDiareserva(diaReservaField.getText());
 				reserva.setNroa(quarto.getNroa());
-				sistema.cadastrarReserva(reserva);
+				//Possui Reserva
+				if(!reserva.getDiaentrada().equals("00-00-0000")) {
+					System.out.println(reserva.getDiaentrada());
+					sistema.cadastrarReserva(reserva);
+					itensTavRes.adicionaReserva();	
+				}
 			}
 		});
 		add(btnCdstRes);
@@ -342,7 +361,7 @@ public class PainelUm extends JPanel{
 		for(tipoServico t : sistema.getServicos()) {
 			boxTipos.addItem(t);
 		}
-		boxTipos.setBounds(700, 55, 250, 20);
+		boxTipos.setBounds(700, 55, 200, 20);
 		boxTipos.setBackground(Color.LIGHT_GRAY);
 		add(boxTipos);
 		
@@ -367,7 +386,7 @@ public class PainelUm extends JPanel{
 		horaEx.setBackground(Color.LIGHT_GRAY);
 		add(horaEx);
 		
-		btnCdstEx.setBounds(700, 230, 200, 40);
+		btnCdstEx.setBounds(700, 230, 225, 40);
 		btnCdstEx.setBackground(Color.white);
 		btnCdstEx.addActionListener(new ActionListener() {
 			@Override
@@ -385,9 +404,35 @@ public class PainelUm extends JPanel{
 		});
 		add(btnCdstEx);
 		
+		//---------------------------Calc extras------------------------------
+		JLabel calcEx = new JLabel("Calculando valores Extras");
+		calcEx.setBounds(925, 5, 225, 15);
+		add(calcEx);
+		
+		JLabel titBox = new JLabel("Selecione a estadia");
+		titBox.setBounds(925, 30, 225, 15);
+		add(titBox);
+		
+		boxEstadiasB.setBounds(925, 55, 225, 20);
+		for(Estadia e : sistema.getEstadias()) {
+			boxEstadiasB.addItem(e);
+		}
+		boxEstadiasB.setBackground(Color.LIGHT_GRAY);
+		add(boxEstadiasB);
+		
+		btnCalculaEx.setBounds(925, 80, 225, 40);
+		btnCalculaEx.setBackground(Color.white);
+		btnCalculaEx.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Estadia est = (Estadia) boxEstadiasB.getSelectedItem();
+				
+				sistema.calcularExtra(est.getCodestadia());
+			}
+		});
+		add(btnCalculaEx);
 		
 		//---------------------------View Clientes------------------------------
-		
 		JLabel tituloView = new JLabel("Algumas Visualizações");
 		tituloView.setBounds(25, 430, 200, 30);
 		add(tituloView);
@@ -403,14 +448,19 @@ public class PainelUm extends JPanel{
 		scrollEmpregados.setBounds(300, 475, 250, 150);
 		add(scrollEmpregados);
 		
-		//---------------------------View Reservas------------------------------
 		
+		//---------------------------View Reservas------------------------------
 		tabReservas = new JTable(itensTavRes);
 		scrollReservas.setViewportView(tabReservas);
 		scrollReservas.setBounds(300, 650, 250, 175);
 		add(scrollReservas);
 		
 		//---------------------------View Estadias------------------------------
+		tabEstadias = new JTable(itensTabEst);
+		scrollEstadias.setViewportView(tabEstadias);
+		scrollEstadias.setBounds(575, 475, 300, 350);
+		add(scrollEstadias);
+		
 		
 		
 	}

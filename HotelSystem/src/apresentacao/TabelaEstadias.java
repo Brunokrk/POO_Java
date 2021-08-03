@@ -6,7 +6,7 @@ import negocio.Sistema;
 
 public class TabelaEstadias extends AbstractTableModel {
 	private Sistema sistema = Sistema.getInstance();
-	private String[] colunas = {"Reservas"};
+	private String[] colunas = {"Estadias"};
 	
 	@Override
 	public int getColumnCount() {
@@ -14,16 +14,16 @@ public class TabelaEstadias extends AbstractTableModel {
 	}
 	@Override
 	public int getRowCount() {		
-		return sistema.getReservas().size();
+		return sistema.getEstadias().size();
 	}
 	@Override
 	public Object getValueAt(int linha, int coluna) {
-		return sistema.getReservas().get(linha);
+		return sistema.getEstadias().get(linha);
 	}
 	public String getColumnName(int column) {
 		return colunas[column];
 	}
-	public void adicionaReserva() {
+	public void adicionaEstadia() {
 		fireTableStructureChanged();
 	}
 	

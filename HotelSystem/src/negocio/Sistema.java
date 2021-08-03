@@ -51,6 +51,10 @@ public class Sistema {
 		extraDAO.getInstance().insert(extra);
 	}
 	
+	public void calcularExtra(int cod) {
+		extraDAO.getInstance().calculaExtra(cod);
+	}
+	
 	public List<Empregado> getEmpregados() {	
 		return empregadoDAO.getInstance().selectAll();
 	}
