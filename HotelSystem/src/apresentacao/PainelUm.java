@@ -16,12 +16,14 @@ import javax.swing.JTextField;
 
 import dados.*;
 import negocio.Sistema;
+import negocio.SistemaMongo;
 
 public class PainelUm extends JPanel{
 
 	
 	public PainelUm() {
 		Sistema sistema = Sistema.getInstance();
+		SistemaMongo sistemaMongo = SistemaMongo.getInstance();
 		
 		JComboBox<Estadia> boxEstadias = new JComboBox<Estadia>();
 		JComboBox<Estadia> boxEstadiasB = new JComboBox<Estadia>();
@@ -171,6 +173,7 @@ public class PainelUm extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Funcionalidade do botão cadastrar cliente
+				
 				Cliente cliente = new Cliente();
 				cliente.setNome(nomeField.getText());
 				cliente.setnRegistro(Integer.parseInt(regField.getText()));
@@ -179,9 +182,14 @@ public class PainelUm extends JPanel{
 				cliente.setCidade(cidadeField.getText());
 				cliente.setBairro(bairroField.getText());
 				cliente.setRua(ruaField.getText());
-				sistema.cadastrarCliente(cliente);
+				//postrgree
+				//sistema.cadastrarCliente(cliente);
 				
-				itensTabCli.adicionaCliente();
+				//mongodb
+				sistemaMongo.cadastrarCliente(cliente);
+				
+				itensTabCli.adicionaCliente();//adaptada para Mongo 
+				
 			}
 			
 		});
@@ -194,7 +202,7 @@ public class PainelUm extends JPanel{
 		//EMPREGADO
 		infoRegEmpField.setBounds(250, 30, 200, 15);
 		add(infoRegEmpField);
-		for(Empregado e : sistema.getEmpregados()) {
+		for(Empregado e : sistemaMongo.getEmpregados()) {
 			boxEmpregados.addItem(e);
 		}
 		boxEmpregados.setBounds(250, 55, 200, 20);
@@ -211,7 +219,7 @@ public class PainelUm extends JPanel{
 		//Estadia
 		infoReservaFiedl.setBounds(250, 130, 200, 15);
 		add(infoReservaFiedl);
-		for(Estadia e : sistema.getEstadias()) {
+		for(Estadia e : sistemaMongo.getEstadias()) {
 			boxEstadias.addItem(e);
 		}
 		boxEstadias.setBounds(250, 155, 200, 20);
@@ -230,7 +238,7 @@ public class PainelUm extends JPanel{
 				limpeza.setcodEstadia(estadia.getCodestadia());
 				limpeza.setnRegEmp(empregado.getnRegistro());
 				limpeza.setTempo(tempoField.getText()); //formato correto
-				sistema.cadastrarLimpeza(limpeza);
+				sistemaMongo.cadastrarLimpeza(limpeza);
 			}
 		});
 		add(btnCdstLim);
@@ -327,13 +335,16 @@ public class PainelUm extends JPanel{
 				estadia.setCheckout(checkOutField.getText());
 				estadia.setCodcliente(Integer.parseInt(codClienteField.getText()));
 				estadia.setNroa(quarto.getNroa());
-				sistema.cadastrarEstadia(estadia);
+				//sistema.cadastrarEstadia(estadia);
+				
+				sistemaMongo.cadastrarEstadia(estadia);
+				
 				itensTabEst.adicionaEstadia();
 				boxEstadiasB.addItem(estadia);
 				
-				List<Estadia> estadias = sistema.getEstadias();
+				//List<Estadia> estadias = sistema.getEstadias();
 				
-				
+				List<Estadia> estadias = sistemaMongo.getEstadias();
 				
 				reserva.setCodcliente(Integer.parseInt(codClienteField.getText()));
 				reserva.setCodestadia(estadias.get(estadias.size()-1).getCodestadia());
@@ -343,6 +354,7 @@ public class PainelUm extends JPanel{
 				//Possui Reserva
 				if(!reserva.getDiaentrada().equals("00-00-0000")) {
 					System.out.println(reserva.getDiaentrada());
+					//############
 					sistema.cadastrarReserva(reserva);
 					itensTavRes.adicionaReserva();	
 				}
@@ -358,7 +370,7 @@ public class PainelUm extends JPanel{
 		add(tituloBoxTipo);
 		
 		//criar BOX DE TIPOS
-		for(tipoServico t : sistema.getServicos()) {
+		for(tipoServico t : sistemaMongo.getServicos()) {
 			boxTipos.addItem(t);
 		}
 		boxTipos.setBounds(700, 55, 200, 20);
@@ -399,7 +411,7 @@ public class PainelUm extends JPanel{
 				extra.setCodTipo(tipo.getCodTipo());
 				extra.setDia(diaEx.getText());
 				extra.setHora(horaEx.getText());
-				sistema.cadastrarExtra(extra);
+				sistemaMongo.cadastrarExtra(extra);
 			}
 		});
 		add(btnCdstEx);
@@ -414,7 +426,7 @@ public class PainelUm extends JPanel{
 		add(titBox);
 		
 		boxEstadiasB.setBounds(925, 55, 225, 20);
-		for(Estadia e : sistema.getEstadias()) {
+		for(Estadia e : sistemaMongo.getEstadias()) {
 			boxEstadiasB.addItem(e);
 		}
 		boxEstadiasB.setBackground(Color.LIGHT_GRAY);

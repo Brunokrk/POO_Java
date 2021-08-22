@@ -3,9 +3,10 @@ package apresentacao;
 import javax.swing.table.AbstractTableModel;
 
 import negocio.Sistema;
+import negocio.SistemaMongo;
 
 public class TabelaEstadias extends AbstractTableModel {
-	private Sistema sistema = Sistema.getInstance();
+	private SistemaMongo sistemaMongo = SistemaMongo.getInstance();
 	private String[] colunas = {"Estadias"};
 	
 	@Override
@@ -14,11 +15,11 @@ public class TabelaEstadias extends AbstractTableModel {
 	}
 	@Override
 	public int getRowCount() {		
-		return sistema.getEstadias().size();
+		return sistemaMongo.getEstadias().size();
 	}
 	@Override
 	public Object getValueAt(int linha, int coluna) {
-		return sistema.getEstadias().get(linha);
+		return sistemaMongo.getEstadias().get(linha);
 	}
 	public String getColumnName(int column) {
 		return colunas[column];

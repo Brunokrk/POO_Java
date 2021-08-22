@@ -1,7 +1,10 @@
 package dados;
 
+import org.bson.types.ObjectId;
+
 public class Estadia {
 	
+	private ObjectId codestadiaMongo;
 	private int codestadia;
 	private String checkin;
 	private String checkout;
@@ -22,6 +25,13 @@ public class Estadia {
 	}
 	
 	
+	
+	public ObjectId getCodestadiaMongo() {
+		return codestadiaMongo;
+	}
+	public void setCodestadiaMongo(ObjectId codestadiaMongo) {
+		this.codestadiaMongo = codestadiaMongo;
+	}
 	public int getNroa() {
 		return nroa;
 	}

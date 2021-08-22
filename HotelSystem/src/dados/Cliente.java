@@ -1,6 +1,9 @@
 package dados;
 
+import org.bson.types.ObjectId;
+
 public class Cliente {
+	private ObjectId nRegistroMongo;
 	private int nRegistro;
 	private String cidade;
 	private String estado;
@@ -22,6 +25,25 @@ public class Cliente {
 		this.bairro = bairro;
 		this.telefone = telefone;
 		this.nome = nome;
+	}
+
+	public Cliente(ObjectId nRegistroMongo, String cidade, String estado, String rua, String bairro, int telefone, String nome) {
+		super();
+		this.nRegistroMongo = nRegistroMongo;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.rua = rua;
+		this.bairro = bairro;
+		this.telefone = telefone;
+		this.nome = nome;
+	}
+	
+	public ObjectId getnRegistroMongo() {
+		return nRegistroMongo;
+	}
+
+	public void setnRegistroMongo(ObjectId nRegistroMongo) {
+		this.nRegistroMongo = nRegistroMongo;
 	}
 
 	public int getnRegistro() {

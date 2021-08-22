@@ -100,20 +100,7 @@ public class EstadiaDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 }
