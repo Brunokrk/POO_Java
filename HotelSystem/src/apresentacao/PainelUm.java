@@ -27,8 +27,9 @@ public class PainelUm extends JPanel{
 		
 		JComboBox<Estadia> boxEstadias = new JComboBox<Estadia>();
 		JComboBox<Estadia> boxEstadiasB = new JComboBox<Estadia>();
+		JComboBox<Estadia> boxClientesC = new JComboBox<Estadia>();
 		JComboBox<Empregado> boxEmpregados = new JComboBox<Empregado>();
-		JComboBox<Quarto> boxQuartos = new JComboBox<Quarto>();
+		JComboBox<QuartoMongo> boxQuartos = new JComboBox<QuartoMongo>();
 		JComboBox<tipoServico> boxTipos = new JComboBox<tipoServico>();
 		
 		JTextField nomeField = new JTextField();
@@ -290,7 +291,7 @@ public class PainelUm extends JPanel{
 		infoBoxQuartos.setBounds(475, 180, 200, 20);
 		add(infoBoxQuartos);
 		
-		for(Quarto q : sistema.getQuartos()) {
+		for(QuartoMongo q : sistemaMongo.getQuartos()) {
 			boxQuartos.addItem(q);
 		}
 		boxQuartos.setBounds(475, 205, 200, 20);
@@ -327,9 +328,9 @@ public class PainelUm extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Reserva reserva = new Reserva();
-				Quarto quarto = new Quarto();
+				QuartoMongo quarto = new QuartoMongo();
 				Estadia estadia = new Estadia();
-				quarto = (Quarto)boxQuartos.getSelectedItem();
+				quarto = (QuartoMongo)boxQuartos.getSelectedItem();
 				
 				estadia.setCheckin(checkInField.getText());
 				estadia.setCheckout(checkOutField.getText());

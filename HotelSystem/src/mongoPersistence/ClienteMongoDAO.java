@@ -58,6 +58,7 @@ public class ClienteMongoDAO {
 			for(Document cli : newCli) {
 				Cliente cliente = new Cliente();
 				cliente.setnRegistroMongo(cli.getObjectId("_id"));
+				cliente.setnRegistro(cli.getInteger("nRegistro"));
 				cliente.setNome(cli.getString("nome"));				 
 				cliente.setCidade(cli.getString("cidade"));
 				cliente.setEstado(cli.getString("estado"));

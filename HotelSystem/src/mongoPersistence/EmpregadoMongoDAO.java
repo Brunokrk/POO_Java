@@ -40,7 +40,7 @@ public class EmpregadoMongoDAO {
 				Empregado empregado = new Empregado();
 				empregado.setnRegistroMongo(emp.getObjectId("_id"));
 				empregado.setNome(emp.getString("nome"));
-				empregado.setnRegistro(emp.getInteger("nRegistro"));
+				empregado.setnRegistro(emp.getInteger("nregistro"));
 				empregados.add(empregado);
 			}
 		}catch(Exception e) {

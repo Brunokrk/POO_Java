@@ -8,6 +8,7 @@ import mongoPersistence.EmpregadoMongoDAO;
 import mongoPersistence.EstadiaMongoDAO;
 import mongoPersistence.ExtraMongoDAO;
 import mongoPersistence.LimpezaMongoDAO;
+import mongoPersistence.QuartoMongoDAO;
 import mongoPersistence.TipoServicoMongoDAO;
 import persistencia.ClienteDAO;
 import persistencia.EmpregadoDAO;
@@ -27,9 +28,9 @@ public class SistemaMongo {
 	private LimpezaMongoDAO limpezaMongoDAO;
 	private TipoServicoMongoDAO servicoMongoDAO;
 	private ExtraMongoDAO extraMongoDAO;
+	private QuartoMongoDAO quartoMongoDAO;
 	/*
 	private ReservaDAO reservaDAO;
-	private QuartoDAO quartoDAO;
 	*/
 	
 	public static SistemaMongo getInstance() {
@@ -72,6 +73,12 @@ public class SistemaMongo {
 		extraMongoDAO.getInstance().insert(extra);
 	}
 	
+	public List<QuartoMongo> getQuartos(){
+		List<QuartoMongo> quartos = new ArrayList<QuartoMongo>();
+		quartos = quartoMongoDAO.getInstance().selectAll();
+		
+		return quartos;
+	}
 	
 	
 	
@@ -92,21 +99,6 @@ public class SistemaMongo {
 		return reservaDAO.getInstance().selectAll();
 	}
 	
-	public List<Quarto> getQuartos(){
-		List<Quarto> quartos = new ArrayList<Quarto>();
-		
-		List<Quarto> duplos = quartoDAO.getInstance().selectAllDuplo();
-		List<Quarto> casal = quartoDAO.getInstance().selectAllCasal();
-		List<Quarto> single = quartoDAO.getInstance().selectAllSingle();
-		List<Quarto> suite = quartoDAO.getInstance().selectAllSuite();
-		
-		quartos.addAll(duplos);
-		quartos.addAll(casal);
-		quartos.addAll(single);
-		quartos.addAll(suite);
-		
-		return quartos;
-	}
 	
 	
 	
