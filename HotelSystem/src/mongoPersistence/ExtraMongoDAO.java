@@ -15,6 +15,8 @@ import dados.Extra;
 
 public class ExtraMongoDAO {
 	private static ExtraMongoDAO instance = null;
+	private static TipoServicoMongoDAO tipoMongo;
+	private static EstadiaMongoDAO estadiaMongo;
 	private static MongoCollection<Document> collection;
 	
 	
@@ -46,5 +48,27 @@ public class ExtraMongoDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void calculaExtra(int cod) {
+		Double money = 0.0;
+	
+		try {
+			MongoIterable<Document> newExt = collection.find();
+			for(Document ext: newExt) {
+				if(ext.getInteger("ccodestadia") == cod) {
+					money += tipoMongo.getInstance().retornaPreco(ext.getInteger("codtipo"));
+				}
+			}
+			
+			//System.out.println(money);
+			estadiaMongo.getInstance().atualizaEstadia(cod, money);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	
 }

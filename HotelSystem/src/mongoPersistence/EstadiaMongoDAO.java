@@ -9,6 +9,10 @@ import org.bson.types.ObjectId;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.combine;
+import static com.mongodb.client.model.Updates.currentDate;
+import static com.mongodb.client.model.Updates.set;
 
 import dados.Empregado;
 import dados.Estadia;
@@ -76,13 +80,31 @@ public class EstadiaMongoDAO {
 		return estadias;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void atualizaEstadia(int cod, Double valor) {
+		try {
+			
+			MongoIterable<Document> newEst = collection.find();
+			for(Document est: newEst) {
+				if(est.getInteger("codestadia") == cod) {
+					Estadia estadia = new Estadia();
+					
+					estadia.setCodestadiaMongo(est.getObjectId("_id"));
+					estadia.setCodestadia(est.getInteger("codestadia"));
+					estadia.setCheckin(est.getString("checkin"));
+					estadia.setCheckout(est.getString("checkout"));
+					estadia.setValorextra(valor);
+					estadia.setCodcliente(est.getInteger("codcliente"));
+					estadia.setNroa(est.getInteger("nroa"));
+					
+					collection.updateOne(
+			                eq("_id", estadia.getCodestadiaMongo()),
+			                combine(set("valorextra", estadia.getValorextra()),currentDate("lastModified")));
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }

@@ -27,7 +27,7 @@ public class PainelUm extends JPanel{
 		
 		JComboBox<Estadia> boxEstadias = new JComboBox<Estadia>();
 		JComboBox<Estadia> boxEstadiasB = new JComboBox<Estadia>();
-		JComboBox<Estadia> boxClientesC = new JComboBox<Estadia>();
+		JComboBox<Cliente> boxClientesC = new JComboBox<Cliente>();
 		JComboBox<Empregado> boxEmpregados = new JComboBox<Empregado>();
 		JComboBox<QuartoMongo> boxQuartos = new JComboBox<QuartoMongo>();
 		JComboBox<tipoServico> boxTipos = new JComboBox<tipoServico>();
@@ -52,7 +52,9 @@ public class PainelUm extends JPanel{
 		JTextField codEstadiaEx = new JTextField();
 		JTextField diaEx = new JTextField();
 		JTextField horaEx = new JTextField();
+		JTextField codEstadiacampo = new JTextField();
 		
+		JLabel codEstadiaLabel = new JLabel("Código da estadia");
 		JLabel tituloCli = new JLabel ("Cadastro de Cliente");
 		JLabel infoNomeField = new JLabel("Nome: ");
 		JLabel infoRegField = new JLabel("CPF: ");//registro
@@ -278,23 +280,38 @@ public class PainelUm extends JPanel{
 		add(btnCdstEst);		
 		*/
 		//---------------------------RESERVA------------------------------
-		tituloCdstReserva.setBounds(475, 230, 200, 15);
+		tituloCdstReserva.setBounds(475, 280, 200, 15);
 		add(tituloCdstReserva);
 		
 		infoCodCliente.setBounds(475, 130, 200, 15);
 		add(infoCodCliente);
 		
-		codClienteField.setBounds(475, 155, 200, 20);
-		codClienteField.setBackground(Color.LIGHT_GRAY);
-		add(codClienteField);
+		for(Cliente e : sistemaMongo.getClientes()) {
+			boxClientesC.addItem(e);
+		}
+		boxClientesC.setBounds(475, 155, 200, 20);
+		boxClientesC.setBackground(Color.LIGHT_GRAY);
+		add(boxClientesC);
 		
-		infoBoxQuartos.setBounds(475, 180, 200, 20);
+		
+		//codClienteField.setBounds(475, 155, 200, 20);
+		//codClienteField.setBackground(Color.LIGHT_GRAY);
+		//add(codClienteField);
+		
+		codEstadiaLabel.setBounds(475, 180, 200, 15);
+		add(codEstadiaLabel);
+		
+		codEstadiacampo.setBounds(475, 205, 200, 20);
+		codEstadiacampo.setBackground(Color.LIGHT_GRAY);
+		add(codEstadiacampo);
+		
+		infoBoxQuartos.setBounds(475, 230, 200, 20);
 		add(infoBoxQuartos);
 		
 		for(QuartoMongo q : sistemaMongo.getQuartos()) {
 			boxQuartos.addItem(q);
 		}
-		boxQuartos.setBounds(475, 205, 200, 20);
+		boxQuartos.setBounds(475, 255, 200, 20);
 		boxQuartos.setBackground(Color.LIGHT_GRAY);
 		add(boxQuartos);
 		/*
@@ -305,24 +322,24 @@ public class PainelUm extends JPanel{
 		codEstadiaField.setBackground(Color.LIGHT_GRAY);
 		add(codEstadiaField);
 		*/
-		infoDiaReserva.setBounds(475, 255, 200, 15);
+		infoDiaReserva.setBounds(475, 305, 200, 15);
 		add(infoDiaReserva);
 		
-		diaReservaField.setBounds(475, 280, 200, 20);
+		diaReservaField.setBounds(475, 330, 200, 20);
 		diaReservaField.setText("00-00-0000");
 		diaReservaField.setBackground(Color.LIGHT_GRAY);
 		add(diaReservaField);
 		
-		infoDiaEntrada.setBounds(475, 305, 200, 15);
+		infoDiaEntrada.setBounds(475, 355, 200, 15);
 		add(infoDiaEntrada);
 		
-		diaEntradaField.setBounds(475, 330, 200, 20);
+		diaEntradaField.setBounds(475, 380, 200, 20);
 		diaEntradaField.setText("00-00-0000");
 		diaEntradaField.setBackground(Color.LIGHT_GRAY);
 		add(diaEntradaField);
 		
 		
-		btnCdstRes.setBounds(475, 355, 200, 40);
+		btnCdstRes.setBounds(475, 405, 200, 40);
 		btnCdstRes.setBackground(Color.white);
 		btnCdstRes.addActionListener(new ActionListener() {
 			@Override
@@ -333,8 +350,10 @@ public class PainelUm extends JPanel{
 				quarto = (QuartoMongo)boxQuartos.getSelectedItem();
 				
 				estadia.setCheckin(checkInField.getText());
+				estadia.setCodestadia(Integer.parseInt(codEstadiacampo.getText()));
 				estadia.setCheckout(checkOutField.getText());
-				estadia.setCodcliente(Integer.parseInt(codClienteField.getText()));
+				Cliente c = (Cliente) boxClientesC.getSelectedItem();
+				estadia.setCodcliente(c.getnRegistro());
 				estadia.setNroa(quarto.getNroa());
 				//sistema.cadastrarEstadia(estadia);
 				
@@ -356,7 +375,7 @@ public class PainelUm extends JPanel{
 				if(!reserva.getDiaentrada().equals("00-00-0000")) {
 					System.out.println(reserva.getDiaentrada());
 					//############
-					sistema.cadastrarReserva(reserva);
+					sistemaMongo.cadastrarReserva(reserva);
 					itensTavRes.adicionaReserva();	
 				}
 			}
@@ -378,12 +397,23 @@ public class PainelUm extends JPanel{
 		boxTipos.setBackground(Color.LIGHT_GRAY);
 		add(boxTipos);
 		
+		JComboBox<Estadia> boxEstadiasC = new JComboBox<Estadia>();
+		
+		for(Estadia e : sistemaMongo.getEstadias()) {
+			boxEstadiasC.addItem(e);
+		}
+		boxEstadiasC.setBounds(700, 105, 200, 20);
+		boxEstadiasC.setBackground(Color.LIGHT_GRAY);
+		add(boxEstadiasC);
+		
+		
+		
 		infoCodEstadiaEx.setBounds(700, 80, 200, 15);
 		add(infoCodEstadiaEx);
 		
-		codEstadiaEx.setBounds(700, 105, 200, 20);
-		codEstadiaEx.setBackground(Color.LIGHT_GRAY);
-		add(codEstadiaEx);
+		//codEstadiaEx.setBounds(700, 105, 200, 20);
+		//codEstadiaEx.setBackground(Color.LIGHT_GRAY);
+		//add(codEstadiaEx);
 		
 		infodiaEx.setBounds(700, 130, 200, 15);
 		add(infodiaEx);
@@ -406,9 +436,10 @@ public class PainelUm extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				Extra extra = new Extra();
 				tipoServico tipo = new tipoServico();
+				Estadia e =(Estadia) boxEstadiasC.getSelectedItem();	
 				
 				tipo = (tipoServico)boxTipos.getSelectedItem();
-				extra.setCodEstadia(Integer.parseInt(codEstadiaEx.getText()));
+				extra.setCodEstadia(e.getCodestadia());
 				extra.setCodTipo(tipo.getCodTipo());
 				extra.setDia(diaEx.getText());
 				extra.setHora(horaEx.getText());
@@ -440,7 +471,7 @@ public class PainelUm extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				Estadia est = (Estadia) boxEstadiasB.getSelectedItem();
 				
-				sistema.calcularExtra(est.getCodestadia());
+				sistemaMongo.calcularExtra(est.getCodestadia());
 			}
 		});
 		add(btnCalculaEx);

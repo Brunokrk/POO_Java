@@ -9,6 +9,7 @@ import mongoPersistence.EstadiaMongoDAO;
 import mongoPersistence.ExtraMongoDAO;
 import mongoPersistence.LimpezaMongoDAO;
 import mongoPersistence.QuartoMongoDAO;
+import mongoPersistence.ReservaMongoDAO;
 import mongoPersistence.TipoServicoMongoDAO;
 import persistencia.ClienteDAO;
 import persistencia.EmpregadoDAO;
@@ -29,9 +30,7 @@ public class SistemaMongo {
 	private TipoServicoMongoDAO servicoMongoDAO;
 	private ExtraMongoDAO extraMongoDAO;
 	private QuartoMongoDAO quartoMongoDAO;
-	/*
-	private ReservaDAO reservaDAO;
-	*/
+	private ReservaMongoDAO reservaMongoDAO;
 	
 	public static SistemaMongo getInstance() {
 		if (instance == null) {
@@ -80,30 +79,21 @@ public class SistemaMongo {
 		return quartos;
 	}
 	
-	
-	
-	/*
-	
-	
 	public void cadastrarReserva(Reserva reserva) {
-		reservaDAO.getInstance().insert(reserva);
+		reservaMongoDAO.getInstance().insert(reserva);
 	}
-	
-	
-	public void calcularExtra(int cod) {
-		extraDAO.getInstance().calculaExtra(cod);
-	}
-	
 	
 	public List<Reserva> getReservas(){
-		return reservaDAO.getInstance().selectAll();
+		return reservaMongoDAO.getInstance().selectAll();
 	}
 	
+
+	public void calcularExtra(int cod) {
+		extraMongoDAO.getInstance().calculaExtra(cod);
+	}
 	
-	
-	
-	
-	
-	
-*/	
 }
+
+
+
+

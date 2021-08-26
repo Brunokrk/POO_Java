@@ -1,6 +1,9 @@
 package dados;
 
+import org.bson.types.ObjectId;
+
 public class Reserva {
+	private ObjectId idmongo;
 	private int codreserva;
 	private int nroa;//quarto
 	private int codestadia;
@@ -21,6 +24,14 @@ public class Reserva {
 		this.codcliente = codcliente;
 	}
 	
+	public ObjectId getIdmongo() {
+		return idmongo;
+	}
+
+	public void setIdmongo(ObjectId idmongo) {
+		this.idmongo = idmongo;
+	}
+
 	public int getCodreserva() {
 		return codreserva;
 	}

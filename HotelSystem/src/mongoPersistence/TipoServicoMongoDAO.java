@@ -48,4 +48,24 @@ public class TipoServicoMongoDAO {
 		
 		return servicos;
 	}
+	
+	public Double retornaPreco(int cod) {
+		Double price = 0.0;
+		
+		try {
+			MongoIterable<Document> newTipS = collection.find();
+			for(Document ext : newTipS) {
+				if(ext.getInteger("codtipo")==cod) {
+					price = ext.getDouble("preco");
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+		return price;
+	}
+	
+	
+	
 }
